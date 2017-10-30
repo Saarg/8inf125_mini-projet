@@ -1,0 +1,24 @@
+# User-specific files
+*.suo
+*.sdf
+*.user
+*.userosscache
+*.sln.docstates
+*.old
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+
+*.log
+
+*.opensdf
+*.XML
+
+UpgradeLog.xml
+
+SFML
+SFML-*
