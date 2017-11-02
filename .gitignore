@@ -23,3 +23,5 @@ UpgradeLog.xml
 DebugLog.txt
 
 .vs/*
+
+!*.lib

@@ -557,10 +557,10 @@
     <ClInclude Include="..\Common\Game\MovingEntity.h" />
     <ClInclude Include="lua\Raven_Scriptor.h" />
     <ClInclude Include="..\Common\script\Scriptor.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\lauxlib.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\lua.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\luahelperfunctions.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\lualib.h" />
+    <ClInclude Include="..\Common\lua-5.3.4\include\lauxlib.h" />
+    <ClInclude Include="..\Common\lua-5.3.4\include\lua.h" />
+    <ClInclude Include="..\Common\lua-5.3.4\include\luahelperfunctions.h" />
+    <ClInclude Include="..\Common\lua-5.3.4\include\lualib.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="..\Common\Game\EntityManager.h" />
     <ClInclude Include="GraveMarkers.h" />
