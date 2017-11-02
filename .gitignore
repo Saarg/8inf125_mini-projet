@@ -20,5 +20,6 @@
 
 UpgradeLog.xml
 
-SFML
-SFML-*
+DebugLog.txt
+
+.vs/*
