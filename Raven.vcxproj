@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="boundschecker|Win32">
       <Configuration>boundschecker</Configuration>
@@ -22,16 +22,19 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -60,10 +63,11 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\code\AI Source\LATEST vc6-vc10\VS2010\Common\lua-5.1.3\include;D:\code\AI Source\LATEST vc6-vc10\VS2010\Common;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\code\AI Source\LATEST vc6-vc10\VS2010\Common\lua-5.1.3;$(LibraryPath)</LibraryPath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">D:\code\AI Source\LATEST vc6-vc10\VS2010\Common;$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\code\AI Source\LATEST vc6-vc10\VS2010\Common;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Common;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Common\lua-5.3.4;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">.\Common;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Common;$(IncludePath)</IncludePath>
+    <SourcePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">
     <Midl>
@@ -92,6 +96,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>.\Common</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -108,6 +113,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -141,6 +147,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>.\Common\lua-5.3.4\include;.\Common</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -157,6 +164,9 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -188,6 +198,7 @@
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>.\Common</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -203,6 +214,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -280,7 +292,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\Game\BaseGameEntity.cpp">
+    <ClCompile Include=".\Common\Game\BaseGameEntity.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -290,7 +302,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\Game\EntityManager.cpp">
+    <ClCompile Include=".\Common\Game\EntityManager.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -410,37 +422,37 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\fuzzy\FuzzyModule.cpp">
+    <ClCompile Include=".\Common\fuzzy\FuzzyModule.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\fuzzy\FuzzyOperators.cpp">
+    <ClCompile Include=".\Common\fuzzy\FuzzyOperators.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\fuzzy\FuzzyVariable.cpp">
+    <ClCompile Include=".\Common\fuzzy\FuzzyVariable.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\fuzzy\FuzzySet_LeftShoulder.cpp">
+    <ClCompile Include=".\Common\fuzzy\FuzzySet_LeftShoulder.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\fuzzy\FuzzySet_RightShoulder.cpp">
+    <ClCompile Include=".\Common\fuzzy\FuzzySet_RightShoulder.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\fuzzy\FuzzySet_Singleton.cpp">
+    <ClCompile Include=".\Common\fuzzy\FuzzySet_Singleton.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\fuzzy\FuzzySet_Triangle.cpp">
+    <ClCompile Include=".\Common\fuzzy\FuzzySet_Triangle.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -455,7 +467,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\Messaging\MessageDispatcher.cpp">
+    <ClCompile Include=".\Common\Messaging\MessageDispatcher.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -490,37 +502,37 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\misc\Cgdi.cpp">
+    <ClCompile Include=".\Common\misc\Cgdi.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\Time\CrudeTimer.cpp">
+    <ClCompile Include=".\Common\Time\CrudeTimer.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\Debug\DebugConsole.cpp">
+    <ClCompile Include=".\Common\Debug\DebugConsole.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\misc\FrameCounter.cpp">
+    <ClCompile Include=".\Common\misc\FrameCounter.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\Time\PrecisionTimer.cpp">
+    <ClCompile Include=".\Common\Time\PrecisionTimer.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\2D\Vector2d.cpp">
+    <ClCompile Include=".\Common\2D\Vector2d.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="..\Common\misc\WindowUtils.cpp">
+    <ClCompile Include=".\Common\misc\WindowUtils.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -540,17 +552,17 @@
     <ClInclude Include="armory\Projectile_Rocket.h" />
     <ClInclude Include="armory\Projectile_Slug.h" />
     <ClInclude Include="armory\Raven_Projectile.h" />
-    <ClInclude Include="..\Common\Game\BaseGameEntity.h" />
-    <ClInclude Include="..\Common\Game\EntityFunctionTemplates.h" />
-    <ClInclude Include="..\Common\Game\MovingEntity.h" />
+    <ClInclude Include=".\Common\Game\BaseGameEntity.h" />
+    <ClInclude Include=".\Common\Game\EntityFunctionTemplates.h" />
+    <ClInclude Include=".\Common\Game\MovingEntity.h" />
     <ClInclude Include="lua\Raven_Scriptor.h" />
-    <ClInclude Include="..\Common\script\Scriptor.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\lauxlib.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\lua.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\luahelperfunctions.h" />
-    <ClInclude Include="..\Common\lua-5.1.3\include\lualib.h" />
+    <ClInclude Include=".\Common\script\Scriptor.h" />
+    <ClInclude Include=".\Common\lua-5.1.3\include\lauxlib.h" />
+    <ClInclude Include=".\Common\lua-5.1.3\include\lua.h" />
+    <ClInclude Include=".\Common\lua-5.1.3\include\luahelperfunctions.h" />
+    <ClInclude Include=".\Common\lua-5.1.3\include\lualib.h" />
     <ClInclude Include="constants.h" />
-    <ClInclude Include="..\Common\Game\EntityManager.h" />
+    <ClInclude Include=".\Common\Game\EntityManager.h" />
     <ClInclude Include="GraveMarkers.h" />
     <ClInclude Include="Raven_Door.h" />
     <ClInclude Include="Raven_ObjectEnumerations.h" />
@@ -559,7 +571,7 @@
     <ClInclude Include="goals\Raven_Goal_Types.h" />
     <ClInclude Include="goals\Goal_AdjustRange.h" />
     <ClInclude Include="goals\Goal_AttackTarget.h" />
-    <ClInclude Include="..\Common\Goals\Goal_Composite.h" />
+    <ClInclude Include=".\Common\Goals\Goal_Composite.h" />
     <ClInclude Include="goals\Goal_Explore.h" />
     <ClInclude Include="goals\Goal_FollowPath.h" />
     <ClInclude Include="goals\Goal_GetItem.h" />
@@ -573,32 +585,32 @@
     <ClInclude Include="goals\GetWeaponGoal_Evaluator.h" />
     <ClInclude Include="goals\Goal_Evaluator.h" />
     <ClInclude Include="goals\Raven_Feature.h" />
-    <ClInclude Include="..\Common\Goals\Goal.h" />
+    <ClInclude Include=".\Common\Goals\Goal.h" />
     <ClInclude Include="goals\Goal_DodgeSideToSide.h" />
     <ClInclude Include="goals\Goal_SayPhrase.h" />
     <ClInclude Include="goals\Goal_SeekToPosition.h" />
     <ClInclude Include="goals\Goal_TraverseEdge.h" />
     <ClInclude Include="goals\Goal_Wander.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzyHedges.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzyModule.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzyOperators.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzyRule.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzyTerm.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzyVariable.h" />
-    <ClInclude Include="..\Common\fuzzy\FzSet.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzySet.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzySet_LeftShoulder.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzySet_RightShoulder.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzySet_Shoulder.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzySet_Singleton.h" />
-    <ClInclude Include="..\Common\fuzzy\FuzzySet_Triangle.h" />
-    <ClInclude Include="..\Common\Graph\AStarHeuristicPolicies.h" />
-    <ClInclude Include="..\Common\misc\CellSpacePartition.h" />
-    <ClInclude Include="..\Common\Graph\GraphAlgorithms.h" />
-    <ClInclude Include="..\Common\Graph\GraphEdgeTypes.h" />
-    <ClInclude Include="..\Common\Graph\GraphNodeTypes.h" />
-    <ClInclude Include="..\Common\Graph\HandyGraphFunctions.h" />
-    <ClInclude Include="..\Common\Graph\NodeTypeEnumerations.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzyHedges.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzyModule.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzyOperators.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzyRule.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzyTerm.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzyVariable.h" />
+    <ClInclude Include=".\Common\fuzzy\FzSet.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzySet.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzySet_LeftShoulder.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzySet_RightShoulder.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzySet_Shoulder.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzySet_Singleton.h" />
+    <ClInclude Include=".\Common\fuzzy\FuzzySet_Triangle.h" />
+    <ClInclude Include=".\Common\Graph\AStarHeuristicPolicies.h" />
+    <ClInclude Include=".\Common\misc\CellSpacePartition.h" />
+    <ClInclude Include=".\Common\Graph\GraphAlgorithms.h" />
+    <ClInclude Include=".\Common\Graph\GraphEdgeTypes.h" />
+    <ClInclude Include=".\Common\Graph\GraphNodeTypes.h" />
+    <ClInclude Include=".\Common\Graph\HandyGraphFunctions.h" />
+    <ClInclude Include=".\Common\Graph\NodeTypeEnumerations.h" />
     <ClInclude Include="navigation\PathEdge.h" />
     <ClInclude Include="navigation\PathManager.h" />
     <ClInclude Include="navigation\Raven_PathPlanner.h" />
@@ -606,39 +618,39 @@
     <ClInclude Include="navigation\SearchTerminationPolicies.h" />
     <ClInclude Include="..\Common\Graph\SparseGraph.h" />
     <ClInclude Include="navigation\TimeSlicedGraphAlgorithms.h" />
-    <ClInclude Include="..\Common\Messaging\MessageDispatcher.h" />
+    <ClInclude Include=".\Common\Messaging\MessageDispatcher.h" />
     <ClInclude Include="Raven_Messages.h" />
-    <ClInclude Include="..\Common\Messaging\Telegram.h" />
+    <ClInclude Include=".\Common\Messaging\Telegram.h" />
     <ClInclude Include="Raven_SensoryMemory.h" />
-    <ClInclude Include="..\Common\Triggers\Trigger.h" />
+    <ClInclude Include=".\Common\Triggers\Trigger.h" />
     <ClInclude Include="triggers\Trigger_HealthGiver.h" />
-    <ClInclude Include="..\Common\Triggers\Trigger_LimitedLifeTime.h" />
+    <ClInclude Include=".\Common\Triggers\Trigger_LimitedLifeTime.h" />
     <ClInclude Include="triggers\Trigger_OnButtonSendMsg.h" />
-    <ClInclude Include="..\Common\Triggers\Trigger_ReSpawning.h" />
+    <ClInclude Include=".\Common\Triggers\Trigger_ReSpawning.h" />
     <ClInclude Include="triggers\Trigger_SoundNotify.h" />
     <ClInclude Include="triggers\Trigger_WeaponGiver.h" />
-    <ClInclude Include="..\Common\Triggers\TriggerRegion.h" />
-    <ClInclude Include="..\Common\Triggers\TriggerSystem.h" />
+    <ClInclude Include=".\Common\Triggers\TriggerRegion.h" />
+    <ClInclude Include=".\Common\Triggers\TriggerSystem.h" />
     <ClInclude Include="Raven_WeaponSystem.h" />
     <ClInclude Include="Raven_TargetingSystem.h" />
-    <ClInclude Include="..\Common\2D\C2DMatrix.h" />
-    <ClInclude Include="..\Common\misc\Cgdi.h" />
-    <ClInclude Include="..\Common\Time\CrudeTimer.h" />
-    <ClInclude Include="..\Common\Debug\DebugConsole.h" />
-    <ClInclude Include="..\Common\misc\FrameCounter.h" />
-    <ClInclude Include="..\Common\2D\geometry.h" />
-    <ClInclude Include="..\Common\2D\InvertedAABBox2D.h" />
-    <ClInclude Include="..\Common\Time\PrecisionTimer.h" />
-    <ClInclude Include="..\Common\misc\PriorityQueue.h" />
-    <ClInclude Include="..\Common\PriorityQueue.h" />
-    <ClInclude Include="..\Common\Time\Regulator.h" />
-    <ClInclude Include="..\Common\misc\Stream_Utility_Functions.h" />
-    <ClInclude Include="..\Common\2D\Transformations.h" />
-    <ClInclude Include="..\Common\misc\utils.h" />
-    <ClInclude Include="..\Common\2D\Vector2D.h" />
-    <ClInclude Include="..\Common\2D\Wall2D.h" />
-    <ClInclude Include="..\Common\2D\WallIntersectionTests.h" />
-    <ClInclude Include="..\Common\misc\WindowUtils.h" />
+    <ClInclude Include=".\Common\2D\C2DMatrix.h" />
+    <ClInclude Include=".\Common\misc\Cgdi.h" />
+    <ClInclude Include=".\Common\Time\CrudeTimer.h" />
+    <ClInclude Include=".\Common\Debug\DebugConsole.h" />
+    <ClInclude Include=".\Common\misc\FrameCounter.h" />
+    <ClInclude Include=".\Common\2D\geometry.h" />
+    <ClInclude Include=".\Common\2D\InvertedAABBox2D.h" />
+    <ClInclude Include=".\Common\Time\PrecisionTimer.h" />
+    <ClInclude Include=".\Common\misc\PriorityQueue.h" />
+    <ClInclude Include=".\Common\PriorityQueue.h" />
+    <ClInclude Include=".\Common\Time\Regulator.h" />
+    <ClInclude Include=".\Common\misc\Stream_Utility_Functions.h" />
+    <ClInclude Include=".\Common\2D\Transformations.h" />
+    <ClInclude Include=".\Common\misc\utils.h" />
+    <ClInclude Include=".\Common\2D\Vector2D.h" />
+    <ClInclude Include=".\Common\2D\Wall2D.h" />
+    <ClInclude Include=".\Common\2D\WallIntersectionTests.h" />
+    <ClInclude Include=".\Common\misc\WindowUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua" />
