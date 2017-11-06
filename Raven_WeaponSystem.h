@@ -59,7 +59,7 @@ private:
 
   //adds a random deviation to the firing angle not greater than m_dAimAccuracy 
   //rads
-  void        AddNoiseToAim(Vector2D& AimingPos)const;
+  void        AddNoiseToAim(Vector2D& AimingPos, double fuzzyAccuracy)const;
 
 public:
 

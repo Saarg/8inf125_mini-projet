@@ -81,6 +81,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                                         script->GetDouble("Bot_AimPersistance"));
 
   m_pSensoryMem = new Raven_SensoryMemory(this, script->GetDouble("Bot_MemorySpan"));
+  InitializeFuzzyModule();
 }
 
 //-------------------------------- dtor ---------------------------------------
@@ -576,4 +577,80 @@ void Raven_Bot::IncreaseHealth(unsigned int val)
 {
   m_iHealth+=val; 
   Clamp(m_iHealth, 0, m_iMaxHealth);
+}
+
+//---------------------------- Accuracy -----------------------------------
+//
+//-----------------------------------------------------------------------------
+double Raven_Bot::GetAccuracy()
+{
+		//fuzzify inputs
+		m_FuzzyModule.Fuzzify("AimFuzzy_DistToTarget", Vec2DDistance(Pos(), GetTargetSys()->GetTarget()->Pos()));
+		m_FuzzyModule.Fuzzify("AimFuzzy_OwnerVelocity", Velocity().Length());
+		m_FuzzyModule.Fuzzify("AimFuzzy_TimeTargetHasBeenVisible", GetTargetSys()->GetTimeTargetHasBeenVisible());
+
+		// Ouput Accuracy as double
+		return m_FuzzyModule.DeFuzzify("AimFuzzy_Accuracy", FuzzyModule::max_av);
+}
+
+//-------------------------  InitializeFuzzyModuleForAiming -------------------
+//
+//  set up some fuzzy variables and rules
+//-----------------------------------------------------------------------------
+void Raven_Bot::InitializeFuzzyModule() {
+
+	FuzzyVariable& AimFuzzy_DistToTarget = m_FuzzyModule.CreateFLV("AimFuzzy_DistToTarget");
+
+	FzSet& Target_Close = AimFuzzy_DistToTarget.AddLeftShoulderSet("Target_Close", 0, 25, 50);
+	FzSet& Target_Medium = AimFuzzy_DistToTarget.AddTriangularSet("Target_Medium", 25, 50, 300);
+	FzSet& Target_Far = AimFuzzy_DistToTarget.AddRightShoulderSet("Target_Far", 450, 600, 1000);
+
+	FuzzyVariable& AimFuzzy_OwnerVelocity = m_FuzzyModule.CreateFLV("AimFuzzy_OwnerVelocity");
+
+	FzSet& LowVelocity = AimFuzzy_OwnerVelocity.AddLeftShoulderSet("LowVelocity", 0, 25, 50);
+	FzSet& AverageVelocity = AimFuzzy_OwnerVelocity.AddTriangularSet("AverageVelocity", 25, 50, 75);
+	FzSet& HighVelocity = AimFuzzy_OwnerVelocity.AddRightShoulderSet("HighVelocity", 50, 75, 100);
+
+	FuzzyVariable& AimFuzzy_TimeTargetHasBeenVisible = m_FuzzyModule.CreateFLV("AimFuzzy_TimeTargetHasBeenVisible");
+
+	FzSet& HighTime = AimFuzzy_TimeTargetHasBeenVisible.AddRightShoulderSet("HighTime", 1, 2, 100);
+	FzSet& AverageTime = AimFuzzy_TimeTargetHasBeenVisible.AddTriangularSet("AverageTime", .5, 1, 2);
+	FzSet& ShortTime = AimFuzzy_TimeTargetHasBeenVisible.AddTriangularSet("ShortTime", 0, .5, 1);
+
+	// Need to Adjuste those variable
+	FuzzyVariable& AimFuzzy_Accuracy = m_FuzzyModule.CreateFLV("AimFuzzy_Accuracy");
+
+	FzSet& HighAccuracy = AimFuzzy_Accuracy.AddLeftShoulderSet("HighAccuracy", 0, 1, 2); 
+	FzSet& AverageAccuracy = AimFuzzy_Accuracy.AddTriangularSet("AverageAccuracy", 1, 2, 3);
+	FzSet& LowAccuracy = AimFuzzy_Accuracy.AddRightShoulderSet("LowAccuracy", 2, 3, 4);
+
+	m_FuzzyModule.AddRule(FzAND(Target_Close, LowVelocity, HighTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, LowVelocity, AverageTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, LowVelocity, ShortTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, AverageVelocity, HighTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, AverageVelocity, AverageTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, AverageVelocity, ShortTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, HighVelocity, HighTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, HighVelocity, AverageTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Close, HighVelocity, ShortTime), AverageAccuracy);
+
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, LowVelocity, HighTime), HighAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, LowVelocity, AverageTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, LowVelocity, ShortTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, AverageVelocity, HighTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, AverageVelocity, AverageTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, AverageVelocity, ShortTime), LowAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, HighVelocity, HighTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, HighVelocity, AverageTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, HighVelocity, ShortTime), LowAccuracy);
+
+	m_FuzzyModule.AddRule(FzAND(Target_Far, LowVelocity, HighTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, LowVelocity, AverageTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, LowVelocity, ShortTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, AverageVelocity, HighTime), AverageAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, AverageVelocity, AverageTime), LowAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, AverageVelocity, ShortTime), LowAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, HighVelocity, HighTime), LowAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, HighVelocity, AverageTime), LowAccuracy);
+	m_FuzzyModule.AddRule(FzAND(Target_Far, HighVelocity, ShortTime), LowAccuracy);
 }

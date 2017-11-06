@@ -9,6 +9,7 @@
 #include "Raven_Game.h"
 #include "Raven_UserOptions.h"
 #include "2D/transformations.h"
+#include <windows.h>
 
 
 
@@ -202,8 +203,9 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
             m_dReactionTime) &&
            m_pOwner->hasLOSto(AimingPos) )
       {
-        AddNoiseToAim(AimingPos);
-
+		// Replace AddNoiseToAim with fuzzy logic
+        AddNoiseToAim(AimingPos, m_pOwner->GetAccuracy());
+		
         GetCurrentWeapon()->ShootAt(AimingPos);
       }
     }
@@ -217,7 +219,8 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
            (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
             m_dReactionTime) )
       {
-        AddNoiseToAim(AimingPos);
+		// Replace AddNoiseToAim with fuzzy logic
+		  AddNoiseToAim(AimingPos, m_pOwner->GetAccuracy());
         
         GetCurrentWeapon()->ShootAt(AimingPos);
       }
@@ -238,11 +241,12 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
 //  adds a random deviation to the firing angle not greater than m_dAimAccuracy 
 //  rads
 //-----------------------------------------------------------------------------
-void Raven_WeaponSystem::AddNoiseToAim(Vector2D& AimingPos)const
+void Raven_WeaponSystem::AddNoiseToAim(Vector2D& AimingPos, double fuzzyAccuracy)const
 {
   Vector2D toPos = AimingPos - m_pOwner->Pos();
 
-  Vec2DRotateAroundOrigin(toPos, RandInRange(-m_dAimAccuracy, m_dAimAccuracy));
+  //Vec2DRotateAroundOrigin(toPos, RandInRange(-m_dAimAccuracy, m_dAimAccuracy));
+  Vec2DRotateAroundOrigin(toPos, fuzzyAccuracy);
 
   AimingPos = toPos + m_pOwner->Pos();
 }

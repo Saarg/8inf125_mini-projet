@@ -16,6 +16,7 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
+#include "Fuzzy/FuzzyModule.h"
 
 
 class Raven_PathPlanner;
@@ -62,6 +63,9 @@ private:
 
   //this is responsible for choosing the bot's current target
   Raven_TargetingSystem*             m_pTargSys;
+
+  //fuzzy logic is used to determine the weapon accuracy.
+  FuzzyModule   m_FuzzyModule;
 
   //this handles all the weapons. and has methods for aiming, selecting and
   //shooting them
@@ -138,6 +142,11 @@ public:
   //this rotates the bot's heading until it is facing directly at the target
   //position. Returns false if not facing at the target.
   bool          RotateFacingTowardPosition(Vector2D target);
+
+  // Aiming fuzzy logic init
+  void     InitializeFuzzyModule();
+
+  double GetAccuracy();
  
   //methods for accessing attribute data
   int           Health()const{return m_iHealth;}
