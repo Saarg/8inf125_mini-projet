@@ -20,8 +20,10 @@
 
 UpgradeLog.xml
 
-DebugLog.txt
-
 .vs/*
 
 !*.lib
+
+!/Common/Debug/
+
+DebugLog.txt
