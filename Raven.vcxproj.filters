@@ -268,6 +268,9 @@
     <ClCompile Include=".\Common\2D\Vector2d.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="Raven_Bot_NN.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -606,6 +609,7 @@
     <ClInclude Include="..\Common\misc\WindowUtils.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Raven_Bot_NN.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
