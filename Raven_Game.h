@@ -165,8 +165,4 @@ public:
               {TagNeighbors(pRaven_Bot, m_Bots, range);}  
 };
 
-
-
-
-
 #endif

@@ -92,6 +92,7 @@ WallAvoidanceWeight     =  10.0;
 WanderWeight            =  1.0;
 SeekWeight              =  0.5;
 ArriveWeight            =  1.0;
+HumanControlWeight		=  1.0;
 
 --how close a neighbour must be before an agent considers it
 --to be within its neighborhood (for separation)

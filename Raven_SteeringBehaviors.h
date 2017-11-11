@@ -57,6 +57,7 @@ private:
     wander             = 0x00010,
     separation         = 0x00040,
     wall_avoidance     = 0x00200,
+	human_control	   = 0x00400
   };
 
 private:
@@ -104,6 +105,7 @@ private:
   double        m_dWeightWallAvoidance;
   double        m_dWeightSeek;
   double        m_dWeightArrive;
+  double		m_dWeightHumanControl;
 
 
   //how far the agent can 'see'
@@ -163,6 +165,9 @@ private:
   Vector2D Separation(const std::list<Raven_Bot*> &agents);
 
 
+  Vector2D HumanControl();
+
+
     /* .......................................................
 
                        END BEHAVIOR DECLARATIONS
@@ -208,18 +213,21 @@ public:
   void WanderOn(){m_iFlags |= wander;}
   void SeparationOn(){m_iFlags |= separation;}
   void WallAvoidanceOn(){m_iFlags |= wall_avoidance;}
+  void HumanControlOn() { m_iFlags |= human_control; }
 
   void SeekOff()  {if(On(seek))   m_iFlags ^=seek;}
   void ArriveOff(){if(On(arrive)) m_iFlags ^=arrive;}
   void WanderOff(){if(On(wander)) m_iFlags ^=wander;}
   void SeparationOff(){if(On(separation)) m_iFlags ^=separation;}
   void WallAvoidanceOff(){if(On(wall_avoidance)) m_iFlags ^=wall_avoidance;}
+  void HumanControlOff() { if (On(human_control)) m_iFlags ^= human_control; }
 
   bool SeekIsOn(){return On(seek);}
   bool ArriveIsOn(){return On(arrive);}
   bool WanderIsOn(){return On(wander);}
   bool SeparationIsOn(){return On(separation);}
   bool WallAvoidanceIsOn(){return On(wall_avoidance);}
+  bool HumanControlIsOn() { return On(human_control); }
 
   const std::vector<Vector2D>& GetFeelers()const{return m_Feelers;}
   

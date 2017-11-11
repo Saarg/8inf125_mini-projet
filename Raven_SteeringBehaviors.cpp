@@ -39,6 +39,7 @@ Raven_Steering::Raven_Steering(Raven_Game* world, Raven_Bot* agent):
              m_dWanderRadius(WanderRad),
              m_dWeightSeek(script->GetDouble("SeekWeight")),
              m_dWeightArrive(script->GetDouble("ArriveWeight")),
+			 m_dWeightHumanControl(script->GetDouble("HumanControlWeight")),
              m_bCellSpaceOn(false),
              m_SummingMethod(prioritized)
              
@@ -194,6 +195,13 @@ Vector2D Raven_Steering::CalculatePrioritized()
     force = Wander() * m_dWeightWander;
 
     if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
+  }
+
+  if (On(human_control))
+  {
+	  force = HumanControl() * m_dWeightHumanControl;
+
+	  if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
   }
 
 
@@ -401,6 +409,29 @@ Vector2D Raven_Steering::Separation(const std::list<Raven_Bot*>& neighbors)
   }
 
   return SteeringForce;
+}
+
+//--------------------------- HumanControl -------------------------------------
+//
+//  Let a human takes control of the agent
+//------------------------------------------------------------------------
+Vector2D Raven_Steering::HumanControl()
+{
+	Vector2D steer = Vector2D(0, 0); //default value
+									 
+	//one movement
+	if (GetKeyState(VK_UP) & 0x8000)	steer = Vector2D(0, -5);
+	if (GetKeyState(VK_DOWN) & 0x8000)	steer = Vector2D(0, 5);
+	if (GetKeyState(VK_LEFT) & 0x8000)	steer = Vector2D(-5, 0);
+	if (GetKeyState(VK_RIGHT) & 0x8000)	steer = Vector2D(5, 0);
+
+	//combined movement
+	if ((GetKeyState(VK_UP) & 0x8000) && (GetKeyState(VK_RIGHT) & 0x8000))	steer = Vector2D(5, -5);
+	if ((GetKeyState(VK_UP) & 0x8000) && (GetKeyState(VK_LEFT) & 0x8000))	steer = Vector2D(-5, -5);
+	if ((GetKeyState(VK_DOWN) & 0x8000) && (GetKeyState(VK_RIGHT) & 0x8000))	steer = Vector2D(5, 5);
+	if ((GetKeyState(VK_DOWN) & 0x8000) && (GetKeyState(VK_LEFT) & 0x8000))	steer = Vector2D(-5, 5);
+
+	return steer;
 }
 
 

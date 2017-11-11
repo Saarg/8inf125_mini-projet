@@ -246,7 +246,7 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 { 
-  while (NumBotsToAdd--)
+  while (NumBotsToAdd>0)
   {
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
@@ -261,11 +261,21 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //register the bot with the entity manager
     EntityMgr->RegisterEntity(rb);
 
+	NumBotsToAdd--;
     
 #ifdef LOG_CREATIONAL_STUFF
   debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif
   }
+
+  //create human player & register it with entity manager
+  Raven_Bot* player = new Raven_Bot(this, Vector2D());
+  player->GetSteering()->HumanControlIsOn();
+  m_Bots.push_back(player);
+  EntityMgr->RegisterEntity(player);
+#ifdef LOG_CREATIONAL_STUFF
+  debug_con << "Adding PLAYER with ID " << ttos(rb->ID()) << "";
+#endif
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
