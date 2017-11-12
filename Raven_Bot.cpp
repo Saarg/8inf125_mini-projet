@@ -384,11 +384,10 @@ void Raven_Bot::TurnIntoPlayable()
 {
 	debug_con << "Player is now in game in bot " << this->ID() << "";
 	double size = script->GetDouble("Bot_Scale") *2;
-	this->SetScale(Vector2D(size, size));
+	//this->SetScale(Vector2D(size, size));
 	this->GetWorld()->setPlayer(this);
 	this->SetHumanPlayer(true);
 	this->GetBrain()->RemoveAllSubgoals();
-	//m_bPossessed = true;
 	this->TakePossession();
 
 	this->GetSteering()->HumanControlOn();
@@ -521,8 +520,15 @@ void Raven_Bot::Render()
   gdi->ClosedShape(m_vecBotVBTrans);
   
   //draw the head
-  gdi->BrownBrush();
+  if (this->IsHumanPlayer()) {
+	  gdi->RedBrush();
+  }
+  else {
+	  gdi->BrownBrush();
+  }
+
   gdi->Circle(Pos(), 6.0 * Scale().x);
+
 
 
   //render the bot's weapon

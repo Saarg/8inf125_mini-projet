@@ -26,6 +26,8 @@
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
 
+#include "Debug/DebugConsole.h"
+
 
 
 //uncomment to write object creation/deletion to debug console
@@ -516,23 +518,33 @@ void Raven_Game::ChangeWeaponOfPossessedBot(unsigned int weapon)const
     switch(weapon)
     {
     case type_blaster:
-      
-      PossessedBot()->ChangeWeapon(type_blaster); return;
+      PossessedBot()->ChangeWeapon(type_blaster); 
+	  return;
 
     case type_shotgun:
-      
-      PossessedBot()->ChangeWeapon(type_shotgun); return;
+      PossessedBot()->ChangeWeapon(type_shotgun);
+	  return;
 
     case type_rocket_launcher:
-      
-      PossessedBot()->ChangeWeapon(type_rocket_launcher); return;
+      PossessedBot()->ChangeWeapon(type_rocket_launcher);
+	  return;
 
     case type_rail_gun:
-      
-      PossessedBot()->ChangeWeapon(type_rail_gun); return;
+      PossessedBot()->ChangeWeapon(type_rail_gun);
+	  return;
 
     }
   }
+}
+
+void Raven_Game::PlayerSwitchToNextWeapon()
+{
+	m_pPlayer->GetWeaponSys()->NextWeapon();
+}
+
+void Raven_Game::PlayerSwitchToPreviousWeapon()
+{
+	m_pPlayer->GetWeaponSys()->PreviousWeapon();
 }
 
 //---------------------------- isLOSOkay --------------------------------------

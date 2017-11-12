@@ -11,6 +11,10 @@
 #include "2D/transformations.h"
 #include <windows.h>
 
+#include "Debug/DebugConsole.h"
+
+const int NB_WEAPONS = 4;
+const int MIN_INDEX_WEAPON = 6;
 
 
 //------------------------- ctor ----------------------------------------------
@@ -162,11 +166,81 @@ Raven_Weapon* Raven_WeaponSystem::GetWeaponFromInventory(int weapon_type)
 }
 
 //----------------------- ChangeWeapon ----------------------------------------
-void Raven_WeaponSystem::ChangeWeapon(unsigned int type)
+bool Raven_WeaponSystem::ChangeWeapon(unsigned int type)
 {
   Raven_Weapon* w = GetWeaponFromInventory(type);
 
-  if (w) m_pCurrentWeapon = w;
+  if (w) {
+	  m_pCurrentWeapon = w;
+	  LogWeapon(type);
+	  return true;
+  }
+  else {
+	  //debug_con << "Not this weapon in inventory" << "";
+	  return false;
+  }
+
+}
+
+void Raven_WeaponSystem::LogWeapon(unsigned int type)
+{
+	switch (type) {
+	case type_blaster:
+		debug_con << "Change Weapon to : BLASTER" << "";
+		break;
+
+	case type_shotgun:
+		debug_con << "Change Weapon to : SHOTGUN" << "";
+		break;
+
+	case type_rocket_launcher:
+		debug_con << "Change Weapon to : ROCKET LAUNCHER" << "";
+		break;
+
+	case type_rail_gun:
+		debug_con << "Change Weapon to : RAIL GUN" << "";
+		break;
+	}
+}
+
+//switch to next available weapon following a predefined order
+int getNextWeapon(int current, int step) {
+	int previous = current + step;
+	if (previous > (MIN_INDEX_WEAPON + NB_WEAPONS)) previous -= NB_WEAPONS;
+
+	return previous;
+}
+void Raven_WeaponSystem::NextWeapon()
+{
+	int w = GetCurrentWeapon()->GetType();
+
+	int step = 0;
+	while (step++ < NB_WEAPONS) {
+		if (ChangeWeapon(getNextWeapon(w, step))) return;
+	}
+
+	debug_con << "No other weapon in inventory" << "";
+	return;
+}
+
+//switch to previous available weapon following a predefined order
+int getPrevWeapon(int current, int step) {
+	int previous = current - step;
+	if (previous < MIN_INDEX_WEAPON) previous += NB_WEAPONS;
+
+	return previous;
+}
+void Raven_WeaponSystem::PreviousWeapon()
+{
+	int w = GetCurrentWeapon()->GetType();
+	
+	int step = 0;
+	while (step++ < NB_WEAPONS) {
+		if (ChangeWeapon(getPrevWeapon(w, step))) return;
+	}
+
+	debug_con << "No other weapon in inventory" << "";
+	return;
 }
 
 //--------------------------- TakeAimAndShoot ---------------------------------

@@ -176,7 +176,15 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
       }
 
       break;
-
+	
+	case WM_MOUSEWHEEL :
+	{
+		if (wParam < 0)
+			g_pRaven->PlayerSwitchToNextWeapon();
+		else
+			g_pRaven->PlayerSwitchToPreviousWeapon();
+	}
+	break;
 
     case WM_LBUTTONDOWN:
     {

@@ -89,7 +89,8 @@ public:
 
   //changes the current weapon to one of the specified type (provided that type
   //is in the bot's possession)
-  void          ChangeWeapon(unsigned int type);
+  //return true if weapon is changed ; false otherwise
+  bool          ChangeWeapon(unsigned int type);
 
   //shoots the current weapon at the given position
   void          ShootAt(Vector2D pos)const;
@@ -108,6 +109,10 @@ public:
 
   void          RenderCurrentWeapon()const;
   void          RenderDesirabilities()const;
+
+  void NextWeapon();
+  void PreviousWeapon();
+  void LogWeapon(unsigned int);
 };
 
 #endif
