@@ -82,6 +82,8 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
 
   m_pSensoryMem = new Raven_SensoryMemory(this, script->GetDouble("Bot_MemorySpan"));
   InitializeFuzzyModule();
+
+  isHumanPlayer = false;
 }
 
 //-------------------------------- dtor ---------------------------------------
@@ -115,6 +117,9 @@ void Raven_Bot::Spawn(Vector2D pos)
     SetPos(pos);
     m_pWeaponSys->Initialize();
     RestoreHealthToMaximum();
+
+	if (this->IsHumanPlayer())
+		this->TurnIntoPlayable();
 }
 
 //-------------------------------- Update -------------------------------------
@@ -162,6 +167,7 @@ void Raven_Bot::Update()
     //and takes a shot if a shot is possible
     m_pWeaponSys->TakeAimAndShoot();
   }
+
 }
 
 
@@ -369,6 +375,23 @@ void Raven_Bot::Exorcise()
   m_pBrain->AddGoal_Explore();
   
   debug_con << "Player is exorcised from bot " << this->ID() << "";
+}
+//------------------------------- TurnIntoPlayable ------------------------------------
+//
+//  called to modify a normal bot and make it a playable one
+//-----------------------------------------------------------------------------
+void Raven_Bot::TurnIntoPlayable()
+{
+	debug_con << "Player is now in game in bot " << this->ID() << "";
+	double size = script->GetDouble("Bot_Scale") *2;
+	this->SetScale(Vector2D(size, size));
+	this->GetWorld()->setPlayer(this);
+	this->SetHumanPlayer(true);
+	this->GetBrain()->RemoveAllSubgoals();
+	//m_bPossessed = true;
+	this->TakePossession();
+
+	this->GetSteering()->HumanControlOn();
 }
 
 

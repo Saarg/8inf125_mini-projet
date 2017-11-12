@@ -11,6 +11,9 @@
 
 #include <cassert>
 
+#include "Debug/DebugConsole.h"
+
+
 
 using std::string;
 using std::vector;
@@ -420,16 +423,16 @@ Vector2D Raven_Steering::HumanControl()
 	Vector2D steer = Vector2D(0, 0); //default value
 									 
 	//one movement
-	if (GetKeyState(VK_UP) & 0x8000)	steer = Vector2D(0, -5);
-	if (GetKeyState(VK_DOWN) & 0x8000)	steer = Vector2D(0, 5);
-	if (GetKeyState(VK_LEFT) & 0x8000)	steer = Vector2D(-5, 0);
-	if (GetKeyState(VK_RIGHT) & 0x8000)	steer = Vector2D(5, 0);
+	if ((GetKeyState(VK_UP) & 0x8000))		steer = Vector2D(0, -5);
+	if ((GetKeyState(VK_DOWN) & 0x8000))	steer = Vector2D(0, 5);
+	if ((GetKeyState(VK_LEFT) & 0x8000))	steer = Vector2D(-5, 0);
+	if ((GetKeyState(VK_RIGHT) & 0x8000))	steer = Vector2D(5, 0);
 
 	//combined movement
-	if ((GetKeyState(VK_UP) & 0x8000) && (GetKeyState(VK_RIGHT) & 0x8000))	steer = Vector2D(5, -5);
-	if ((GetKeyState(VK_UP) & 0x8000) && (GetKeyState(VK_LEFT) & 0x8000))	steer = Vector2D(-5, -5);
+	if ((GetKeyState(VK_UP) & 0x8000) && (GetKeyState(VK_RIGHT) & 0x8000))		steer = Vector2D(5, -5);
+	if ((GetKeyState(VK_UP) & 0x8000) && (GetKeyState(VK_LEFT) & 0x8000))		steer = Vector2D(-5, -5);
 	if ((GetKeyState(VK_DOWN) & 0x8000) && (GetKeyState(VK_RIGHT) & 0x8000))	steer = Vector2D(5, 5);
-	if ((GetKeyState(VK_DOWN) & 0x8000) && (GetKeyState(VK_LEFT) & 0x8000))	steer = Vector2D(-5, 5);
+	if ((GetKeyState(VK_DOWN) & 0x8000) && (GetKeyState(VK_LEFT) & 0x8000))		steer = Vector2D(-5, 5);
 
 	return steer;
 }

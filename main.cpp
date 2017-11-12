@@ -163,13 +163,13 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
            break;
 
 
-         case VK_UP:
+         //case VK_UP:
 
-           g_pRaven->AddBots(1); break;
+         //  g_pRaven->AddBots(1); break;
 
-         case VK_DOWN:
+         //case VK_DOWN:
 
-           g_pRaven->RemoveBot(); break;
+         //  g_pRaven->RemoveBot(); break;
            
 
         }

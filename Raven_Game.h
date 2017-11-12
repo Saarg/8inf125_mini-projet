@@ -66,6 +66,10 @@ private:
   //class manages the graves
   GraveMarkers*                    m_pGraveMarkers;
 
+  //keep tracking player
+  Raven_Bot*					   m_pPlayer;
+
+  
   //this iterates through each trigger, testing each one against each bot
   void  UpdateTriggers();
 
@@ -80,6 +84,9 @@ private:
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
+
+  
   
 public:
   
@@ -98,6 +105,8 @@ public:
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
   void AddBolt(Raven_Bot* shooter, Vector2D target);
+
+  void setPlayer(Raven_Bot* p) { m_pPlayer = p; };
 
   //removes the last bot to be added
   void RemoveBot();

@@ -71,6 +71,9 @@ private:
   //shooting them
   Raven_WeaponSystem*                m_pWeaponSys;
 
+  //is the human player
+  bool								isHumanPlayer;
+
   //A regulator object limits the update frequency of a specific AI component
   Regulator*                         m_pWeaponSelectionRegulator;
   Regulator*                         m_pGoalArbitrationRegulator;
@@ -139,6 +142,9 @@ public:
   void         Write(std::ostream&  os)const{/*not implemented*/}
   void         Read (std::ifstream& is){/*not implemented*/}
 
+  bool IsHumanPlayer() { return isHumanPlayer; }
+  void SetHumanPlayer(bool value) { isHumanPlayer = value; }
+
   //this rotates the bot's heading until it is facing directly at the target
   //position. Returns false if not facing at the target.
   bool          RotateFacingTowardPosition(Vector2D target);
@@ -183,6 +189,8 @@ public:
   void          ChangeWeapon(unsigned int type);
   void          TakePossession();
   void          Exorcise();
+
+  void			TurnIntoPlayable();
 
   //spawns the bot at the given position
   void          Spawn(Vector2D pos);

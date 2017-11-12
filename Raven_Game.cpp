@@ -142,10 +142,11 @@ void Raven_Game::Update()
       curW = m_Projectiles.erase(curW);
     }   
   }
+
   
   //update the bots
   bool bSpawnPossible = true;
-  
+
   std::list<Raven_Bot*>::iterator curBot = m_Bots.begin();
   for (curBot; curBot != m_Bots.end(); ++curBot)
   {
@@ -246,11 +247,12 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 { 
-  while (NumBotsToAdd>0)
+	Raven_Bot* rb;
+  while (NumBotsToAdd--)
   {
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
-    Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+    rb = new Raven_Bot(this, Vector2D());
 
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
@@ -260,22 +262,19 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 
     //register the bot with the entity manager
     EntityMgr->RegisterEntity(rb);
-
-	NumBotsToAdd--;
     
 #ifdef LOG_CREATIONAL_STUFF
   debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif
   }
 
-  //create human player & register it with entity manager
-  Raven_Bot* player = new Raven_Bot(this, Vector2D());
-  player->GetSteering()->HumanControlIsOn();
-  m_Bots.push_back(player);
-  EntityMgr->RegisterEntity(player);
 #ifdef LOG_CREATIONAL_STUFF
   debug_con << "Adding PLAYER with ID " << ttos(rb->ID()) << "";
 #endif
+
+  //turn last bot into human playable
+  rb->SetHumanPlayer(true);
+
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
@@ -442,8 +441,7 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
   //if there is no selected bot just return;
   if (!pBot && m_pSelectedBot == NULL) return;
 
-  //if the cursor is over a different bot to the existing selection,
-  //change selection
+  //if the cursor is over a different bot to the existing selection, change selection
   if (pBot && pBot != m_pSelectedBot)
   { 
     if (m_pSelectedBot) m_pSelectedBot->Exorcise();
@@ -464,22 +462,22 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
   //if the bot is possessed then a right click moves the bot to the cursor
   //position
-  if (m_pSelectedBot->isPossessed())
-  {
-    //if the shift key is pressed down at the same time as clicking then the
-    //movement command will be queued
-    if (IS_KEY_PRESSED('Q'))
-    {
-      m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(POINTStoVector(p));
-    }
-    else
-    {
-      //clear any current goals
-      m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+  //if (m_pSelectedBot->isPossessed())
+  //{
+  //  //if the shift key is pressed down at the same time as clicking then the
+  //  //movement command will be queued
+  //  if (IS_KEY_PRESSED('Q'))
+  //  {
+  //    m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(POINTStoVector(p));
+  //  }
+  //  else
+  //  {
+  //    //clear any current goals
+  //    m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
 
-      m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
-    }
-  }
+  //    m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
+  //  }
+  //}
 }
 
 //---------------------- ClickLeftMouseButton ---------------------------------
