@@ -13,6 +13,7 @@
 //-----------------------------------------------------------------------------
 #include <map>
 #include "2d/vector2d.h"
+#include "doublefann.h"
 
 class Raven_Bot;
 class Raven_Weapon;
@@ -53,6 +54,16 @@ private:
   //even if the target disappears from view.
   double            m_dAimPersistance;
 
+  const unsigned int num_input = 4;
+  const unsigned int num_output = 1;
+  const unsigned int num_layers = 3;
+  const unsigned int num_neurons_hidden = 3;
+  const float desired_error = (const float) 0.001;
+  const unsigned int max_epochs = 500000;
+  const unsigned int epochs_between_reports = 1000;
+
+  struct fann *ann;
+
   //predicts where the target will be by the time it takes the current weapon's
   //projectile type to reach it. Used by TakeAimAndShoot
   Vector2D    PredictFuturePositionOfTarget()const;
@@ -77,6 +88,7 @@ public:
   //target) and, if aimed correctly, fires a round. (Called each update-step
   //from Raven_Bot::Update)
   void          TakeAimAndShoot()const;
+  void          TakeAimAndShootNN()const;
 
   //this method determines the most appropriate weapon to use given the current
   //game state. (Called every n update-steps from Raven_Bot::Update)
@@ -104,7 +116,7 @@ public:
   //returns the amount of ammo remaining for the specified weapon
   int           GetAmmoRemainingForWeapon(unsigned int weapon_type);
 
-  double         ReactionTime()const{return m_dReactionTime;}
+  double        ReactionTime()const{return m_dReactionTime;}
 
   void          RenderCurrentWeapon()const;
   void          RenderDesirabilities()const;

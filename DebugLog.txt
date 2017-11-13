@@ -1,0 +1,104 @@
+NavGraph for maps/Raven_DM1.map loaded okay
+Average edge length is 23.7036
+Neighborhood range set to 24.7036
+Partitioning navgraph nodes...
+Loading map...
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Spawn Point
+Creating a Spawn Point
+Creating a Spawn Point
+Creating a Health
+Creating a Health
+Creating a Health
+Creating a rocket_launcher
+Creating a Railgun
+Creating a shotgun
+Creating a shotgun
+Creating a rocket_launcher
+maps/Raven_DM1.map loaded okay
+BOT 402 IS STUCK!!
+BOT 614 IS STUCK!!
+BOT 1453 IS STUCK!!
+BOT 1386 IS STUCK!!
+BOT 402 IS STUCK!!
+deleting raven bot (id = 401)
+deleting raven bot (id = 402)
+deleting raven bot (id = 403)
+deleting raven bot (id = 614)
+deleting raven bot (id = 1337)
+deleting raven bot (id = 1342)
+deleting raven bot (id = 1356)
+deleting raven bot (id = 1359)
+deleting raven bot (id = 1360)
+deleting raven bot (id = 1374)
+deleting raven bot (id = 1377)
+deleting raven bot (id = 1378)
+deleting raven bot (id = 1381)
+deleting raven bot (id = 1386)
+deleting raven bot (id = 1400)
+deleting raven bot (id = 1405)
+deleting raven bot (id = 1412)
+deleting raven bot (id = 1417)
+deleting raven bot (id = 1437)
+deleting raven bot (id = 1444)
+deleting raven bot (id = 1453)
+deleting raven bot (id = 1462)
+deleting raven bot (id = 1471)
+deleting raven bot (id = 1493)

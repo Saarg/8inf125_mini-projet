@@ -30,6 +30,10 @@ Raven_WeaponSystem::Raven_WeaponSystem(Raven_Bot* owner,
 //-----------------------------------------------------------------------------
 Raven_WeaponSystem::~Raven_WeaponSystem()
 {
+	fann_save(ann, "WeaponSystem.net");
+
+	fann_destroy(ann);
+
   for (unsigned int w=0; w<m_WeaponMap.size(); ++w)
   {
     delete m_WeaponMap[w];
@@ -58,6 +62,12 @@ void Raven_WeaponSystem::Initialize()
   m_WeaponMap[type_shotgun]         = 0;
   m_WeaponMap[type_rail_gun]        = 0;
   m_WeaponMap[type_rocket_launcher] = 0;
+
+  //ann = fann_create_standard(num_layers, num_input, num_neurons_hidden, num_output);
+  ann = fann_create_from_file("WeaponSystem.net");
+
+  fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
+  fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
 }
 
 //-------------------------------- SelectWeapon -------------------------------
@@ -176,6 +186,16 @@ void Raven_WeaponSystem::ChangeWeapon(unsigned int type)
 //-----------------------------------------------------------------------------
 void Raven_WeaponSystem::TakeAimAndShoot()const
 {
+	fann_type calc_out[1];
+	fann_type input[4];
+
+	input[0] = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenOutOfView();
+	input[1] = m_dAimPersistance;
+	input[2] = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible();
+	input[3] = m_dReactionTime;
+
+	calc_out[0] = 0.0;
+
   //aim the weapon only if the current target is shootable or if it has only
   //very recently gone out of view (this latter condition is to ensure the 
   //weapon is aimed at the target even if it temporarily dodges behind a wall
@@ -207,6 +227,7 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
         AddNoiseToAim(AimingPos, m_pOwner->GetAccuracy());
 		
         GetCurrentWeapon()->ShootAt(AimingPos);
+		calc_out[0] = 1.0;
       }
     }
 
@@ -223,9 +244,11 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
 		  AddNoiseToAim(AimingPos, m_pOwner->GetAccuracy());
         
         GetCurrentWeapon()->ShootAt(AimingPos);
+		calc_out[0] = 1.0;
       }
     }
 
+	fann_train(ann, input, calc_out);
   }
   
   //no target to shoot at so rotate facing to be parallel with the bot's
@@ -234,6 +257,36 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
   {
     m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos()+ m_pOwner->Heading());
   }
+}
+
+void Raven_WeaponSystem::TakeAimAndShootNN()const
+{
+	if (m_pOwner->GetTargetSys()->isTargetShootable())
+	{
+		fann_type *calc_out;
+		fann_type input[4];
+
+		input[0] = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenOutOfView();
+		input[1] = m_dAimPersistance;
+		input[2] = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible();
+		input[3] = m_dReactionTime;
+
+		calc_out = fann_run(ann, input);
+
+		Vector2D AimingPos = m_pOwner->GetTargetBot()->Pos();
+
+		m_pOwner->RotateFacingTowardPosition(AimingPos);
+
+		AddNoiseToAim(AimingPos, m_pOwner->GetAccuracy());
+
+		if ((double)(*calc_out) > 0.5) {
+			GetCurrentWeapon()->ShootAt(AimingPos);
+		}
+	}
+	else
+	{
+		m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos() + m_pOwner->Heading());
+	}
 }
 
 //---------------------------- AddNoiseToAim ----------------------------------
