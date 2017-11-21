@@ -649,9 +649,9 @@ void Raven_Bot::InitializeFuzzyModule() {
 	// Need to Adjuste those variable
 	FuzzyVariable& AimFuzzy_Accuracy = m_FuzzyModule.CreateFLV("AimFuzzy_Accuracy");
 
-	FzSet& HighAccuracy = AimFuzzy_Accuracy.AddLeftShoulderSet("HighAccuracy", 0, 1, 2); 
-	FzSet& AverageAccuracy = AimFuzzy_Accuracy.AddTriangularSet("AverageAccuracy", 1, 2, 3);
-	FzSet& LowAccuracy = AimFuzzy_Accuracy.AddRightShoulderSet("LowAccuracy", 2, 3, 4);
+	FzSet& HighAccuracy = AimFuzzy_Accuracy.AddLeftShoulderSet("HighAccuracy", 0, .1, .2); 
+	FzSet& AverageAccuracy = AimFuzzy_Accuracy.AddTriangularSet("AverageAccuracy", .1, .2, .3);
+	FzSet& LowAccuracy = AimFuzzy_Accuracy.AddRightShoulderSet("LowAccuracy", .2, .3, .4);
 
 	m_FuzzyModule.AddRule(FzAND(Target_Close, LowVelocity, HighTime), HighAccuracy);
 	m_FuzzyModule.AddRule(FzAND(Target_Close, LowVelocity, AverageTime), HighAccuracy);
