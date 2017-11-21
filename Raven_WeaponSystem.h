@@ -110,9 +110,9 @@ public:
   void          RenderCurrentWeapon()const;
   void          RenderDesirabilities()const;
 
-  void NextWeapon();
-  void PreviousWeapon();
-  void LogWeapon(unsigned int);
+  void			NextWeapon();
+  void			PreviousWeapon();
+  void			LogWeapon(unsigned int);
 };
 
 #endif

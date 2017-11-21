@@ -45,6 +45,14 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
 {
   //load in the default map
   LoadMap(script->GetString("StartMap"));
+
+  if (m_pPlayer != NULL) {
+	  m_pSelectedBot = m_pPlayer;
+	  debug_con << "Player is selected " << "";
+  }
+  else {
+	  debug_con << "No player selected " << "";
+  }
 }
 
 
@@ -276,7 +284,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 
   //turn last bot into human playable
   rb->SetHumanPlayer(true);
-
+  m_pPlayer = rb;
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------

@@ -73,34 +73,9 @@ Creating a shotgun
 Creating a shotgun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
+Player is selected 
 Player is now in game in bot 403
 Player Possesses bot 403
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : BLASTER
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : BLASTER
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : BLASTER
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : BLASTER
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : BLASTER
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : RAIL GUN
-Change Weapon to : BLASTER
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : RAIL GUN
-Change Weapon to : BLASTER
-Change Weapon to : SHOTGUN
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : RAIL GUN
-Change Weapon to : BLASTER
-Change Weapon to : SHOTGUN
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : RAIL GUN
-Change Weapon to : BLASTER
-Change Weapon to : SHOTGUN
-Change Weapon to : ROCKET LAUNCHER
-Change Weapon to : RAIL GUN
-Change Weapon to : BLASTER
-Change Weapon to : SHOTGUN
+deleting raven bot (id = 401)
+deleting raven bot (id = 402)
+deleting raven bot (id = 403)
