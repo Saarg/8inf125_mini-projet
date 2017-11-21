@@ -30,6 +30,8 @@ Grenade::Grenade(Raven_Bot* shooter, Vector2D target) :
 	m_dBlastRadius(script->GetDouble("Grenade_BlastRadius"))
 {
 	assert(target != Vector2D());
+
+	m_dRemainingTime = script->GetDouble("Grenade_Timer");
 }
 
 
@@ -121,6 +123,12 @@ void Grenade::TestForImpact()
 	}
 }
 
+void Grenade::DecreaseTimer()
+{
+	double step = script->GetDouble("Grenade_TimerRate");
+	m_dRemainingTime -= step;
+}
+
 //--------------- InflictDamageOnBotsWithinBlastRadius ------------------------
 //
 //  If the rocket has impacted we test all bots to see if they are within the 
@@ -151,8 +159,8 @@ void Grenade::InflictDamageOnBotsWithinBlastRadius()
 //-----------------------------------------------------------------------------
 void Grenade::Render()
 {
-	gdi->RedPen();
-	gdi->OrangeBrush();
+	gdi->DarkGreenPen();
+	gdi->GreenBrush();
 	gdi->Circle(Pos(), 2);
 
 	if (m_bImpacted)
