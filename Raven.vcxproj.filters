@@ -268,6 +268,12 @@
     <ClCompile Include=".\Common\2D\Vector2d.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Weapon_GrenadeLauncher.cpp">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="armory\Projectile_Grenade.cpp">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -606,6 +612,12 @@
     <ClInclude Include="..\Common\misc\WindowUtils.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="armory\Weapon_GrenadeLauncher.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Projectile_Grenade.h">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
@@ -618,6 +630,9 @@
       <Filter>Resource Files\maps</Filter>
     </None>
     <None Include="maps\Raven_DM1_Doors.map">
+      <Filter>Resource Files\maps</Filter>
+    </None>
+    <None Include="maps\Raven_DM2.map">
       <Filter>Resource Files\maps</Filter>
     </None>
   </ItemGroup>
