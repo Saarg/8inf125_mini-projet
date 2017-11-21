@@ -11,7 +11,7 @@ NumBots   = 3
 MaxSearchCyclesPerUpdateStep = 1000
 
 --the name of the default map
-StartMap = "maps/Raven_DM1.map"
+StartMap = "maps/Raven_DM2.map"
 
 --cell space partitioning defaults
 NumCellsX = 10

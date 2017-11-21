@@ -113,6 +113,24 @@ void Trigger_WeaponGiver::Render()
       
         break;
 
+	  case type_grenade_launcher:
+	  {
+
+		  Vector2D facing(-1, 0);
+
+		  m_vecRLVBTrans = WorldTransform(m_vecRLVB,
+			  Pos(),
+			  facing,
+			  facing.Perp(),
+			  Vector2D(2.5, 2.5));
+
+		  gdi->DarkGreenPen();
+		  gdi->DarkGreenBrush();
+		  gdi->Circle(Pos(), 4);
+	  }
+
+	  break;
+
     }//end switch
   }
 }

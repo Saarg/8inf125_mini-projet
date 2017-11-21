@@ -156,6 +156,7 @@ void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
 
   //let the corresponding navgraph node point to this object
   NavGraph::NodeType& node = m_pNavGraph->GetNode(wg->GraphNodeIndex());
+  debug_con << "node : " << node.Pos() << "";
 
   node.SetExtraInfo(wg);
 

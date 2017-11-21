@@ -3,6 +3,7 @@
 #include "armory/Weapon_RailGun.h"
 #include "armory/Weapon_ShotGun.h"
 #include "armory/Weapon_Blaster.h"
+#include "armory/Weapon_GrenadeLauncher.h"
 #include "Raven_Bot.h"
 #include "misc/utils.h"
 #include "lua/Raven_Scriptor.h"
@@ -13,7 +14,7 @@
 
 #include "Debug/DebugConsole.h"
 
-const int NB_WEAPONS = 4;
+const int NB_WEAPONS = 5;
 const int MIN_INDEX_WEAPON = 6;
 
 
@@ -133,6 +134,11 @@ void  Raven_WeaponSystem::AddWeapon(unsigned int weapon_type)
 
     w = new RocketLauncher(m_pOwner); break;
 
+  case type_grenade_launcher:
+
+	w = new GrenadeLauncher(m_pOwner); break;
+	
+
   }//end switch
   
 
@@ -150,6 +156,7 @@ void  Raven_WeaponSystem::AddWeapon(unsigned int weapon_type)
   else
   {
     m_WeaponMap[weapon_type] = w;
+	debug_con << "Add " << weapon_type << " to,inventory" << "";
   }
 }
 
@@ -199,6 +206,10 @@ void Raven_WeaponSystem::LogWeapon(unsigned int type)
 
 	case type_rail_gun:
 		debug_con << "Change Weapon to : RAIL GUN" << "";
+		break;
+
+	case type_grenade_launcher:
+		debug_con << "Change Weapon to : GRENADE LAUNCHER" << "";
 		break;
 	}
 }
