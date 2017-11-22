@@ -10,8 +10,7 @@
 
 //------------------------------ ctor -----------------------------------------
 //-----------------------------------------------------------------------------
-Goal_FollowPath::
-Goal_FollowPath(Raven_Bot*          pBot,
+Goal_FollowPath::Goal_FollowPath(Raven_Bot*pBot,
                 std::list<PathEdge> path):Goal_Composite<Raven_Bot>(pBot, goal_follow_path),
                                                   m_Path(path)
 {

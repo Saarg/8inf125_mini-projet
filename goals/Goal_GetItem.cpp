@@ -2,12 +2,14 @@
 #include "../Raven_ObjectEnumerations.h"
 #include "../Raven_Bot.h"
 #include "../navigation/Raven_PathPlanner.h"
+#include "Goal_DodgeSideToSide.h"
 
 #include "Messaging/Telegram.h"
 #include "..\Raven_Messages.h"
 
 #include "Goal_Wander.h"
 #include "Goal_FollowPath.h"
+#include "Goal_FollowPathSideToSide.h"
 
 
 int ItemTypeToGoalType(int gt)
@@ -43,13 +45,14 @@ void Goal_GetItem::Activate()
   
   m_pGiverTrigger = 0;
   
-  //request a path to the item
-  m_pOwner->GetPathPlanner()->RequestPathToItem(m_iItemToGet);
+  
+	  //request a path to the item
+	  m_pOwner->GetPathPlanner()->RequestPathToItem(m_iItemToGet);
 
-  //the bot may have to wait a few update cycles before a path is calculated
-  //so for appearances sake it just wanders
-  AddSubgoal(new Goal_Wander(m_pOwner));
+	  //the bot may have to wait a few update cycles before a path is calculated
+	  //so for appearances sake it just wanders
 
+	  AddSubgoal(new Goal_Wander(m_pOwner));
 }
 
 //-------------------------- Process ------------------------------------------
@@ -84,18 +87,23 @@ bool Goal_GetItem::HandleMessage(const Telegram& msg)
     switch(msg.Msg)
     {
     case Msg_PathReady:
-
+		
       //clear any existing goals
       RemoveAllSubgoals();
+	  if (this->m_iType == 7) {
+		  //m_pOwner->SetDead();
+		  AddSubgoal(new Goal_FollowPathSideToSide(m_pOwner,
+			  m_pOwner->GetPathPlanner()->GetPath()));
+	  }
+	  else {
+		  AddSubgoal(new Goal_FollowPath(m_pOwner,
+			  m_pOwner->GetPathPlanner()->GetPath()));
 
-      AddSubgoal(new Goal_FollowPath(m_pOwner,
-                                     m_pOwner->GetPathPlanner()->GetPath()));
-
-      //get the pointer to the item
-      m_pGiverTrigger = static_cast<Raven_Map::TriggerType*>(msg.ExtraInfo);
+		  //get the pointer to the item
+		  m_pGiverTrigger = static_cast<Raven_Map::TriggerType*>(msg.ExtraInfo);
+	  }
 
       return true; //msg handled
-
 
     case Msg_NoPathAvailable:
 

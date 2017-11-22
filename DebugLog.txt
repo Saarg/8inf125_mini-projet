@@ -85,4 +85,28 @@ Player is now in game in bot 1071
 Player Possesses bot 1071
 Add 7 to,inventory
 Add 8 to,inventory
+Player is exorcised from bot 1071
 Add 6 to,inventory
+Add 7 to,inventory
+Player is exorcised from bot 1070
+Player is now in game in bot 1071
+Player Possesses bot 1071
+Add 8 to,inventory
+Add 7 to,inventory
+Player is exorcised from bot 1069
+Add 6 to,inventory
+Add 8 to,inventory
+Player is now in game in bot 1071
+Player Possesses bot 1071
+BOT 1069 IS STUCK!!
+Add 7 to,inventory
+Add 8 to,inventory
+Player is exorcised from bot 1070
+Player is now in game in bot 1071
+Player Possesses bot 1071
+Player is now in game in bot 1071
+Player Possesses bot 1071
+Add 8 to,inventory
+deleting raven bot (id = 1069)
+deleting raven bot (id = 1070)
+deleting raven bot (id = 1071)
