@@ -27,3 +27,4 @@ UpgradeLog.xml
 !/Common/Debug/
 
 DebugLog.txt
+UpgradeLog.*

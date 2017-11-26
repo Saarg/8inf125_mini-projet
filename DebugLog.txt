@@ -85,28 +85,39 @@ Player is now in game in bot 1071
 Player Possesses bot 1071
 Add 7 to,inventory
 Add 8 to,inventory
-Player is exorcised from bot 1071
+angle 1e+07
+distance 1e+07
+angle 1e+07
+distance 1e+07
 Add 6 to,inventory
-Add 7 to,inventory
-Player is exorcised from bot 1070
+angle 0.154157
+distance 130.922
+angle 0.0121435
+distance 108.622
+angle 0.2078
+distance 103.666
+angle 0.377171
+distance 109.975
+angle 0.281242
+distance 114.104
+angle 0.0744876
+distance 120.597
+angle 0.0297333
+distance 129.038
+angle 1e+07
+distance 1e+07
+angle 1e+07
+distance 1e+07
+angle 0.144256
+distance 133.629
+angle 0.586816
+distance 107.618
 Player is now in game in bot 1071
 Player Possesses bot 1071
-Add 8 to,inventory
-Add 7 to,inventory
-Player is exorcised from bot 1069
-Add 6 to,inventory
-Add 8 to,inventory
-Player is now in game in bot 1071
-Player Possesses bot 1071
-BOT 1069 IS STUCK!!
-Add 7 to,inventory
-Add 8 to,inventory
-Player is exorcised from bot 1070
-Player is now in game in bot 1071
-Player Possesses bot 1071
-Player is now in game in bot 1071
-Player Possesses bot 1071
-Add 8 to,inventory
+angle 1e+07
+distance 1e+07
+angle 1e+07
+distance 1e+07
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)

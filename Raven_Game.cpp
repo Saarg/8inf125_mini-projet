@@ -504,9 +504,42 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 //-----------------------------------------------------------------------------
 void Raven_Game::ClickLeftMouseButton(POINTS p)
 {
-  if (m_pSelectedBot && m_pSelectedBot->isPossessed())
+ if (m_pSelectedBot && m_pSelectedBot->isPossessed())
   {
-    m_pSelectedBot->FireWeapon(POINTStoVector(p));
+	 double distance = 9999999.9;
+	 double angle = 9999999.9;
+
+	 std::vector<Raven_Bot*> bots = GetAllBotsInFOV(m_pSelectedBot);
+
+	 std::vector<Raven_Bot*>::iterator it = bots.begin();
+	 for (it; it != bots.end(); ++it)
+	 {
+		 if (*it == m_pSelectedBot)
+			 continue;
+
+		 double cur_distance;
+		 double cur_angle;
+
+		 Vector2D botPos = (*it)->Pos();
+		 Vector2D selPos = m_pSelectedBot->Pos();
+		 Vector2D cursor = POINTStoVector(p);
+
+		 Vector2D PtoC = cursor - selPos;
+		 Vector2D PtoB = botPos - selPos;
+		 
+		 cur_angle = acos(PtoC.Dot(PtoB) / (Vec2DLength(PtoC) * Vec2DLength(PtoB)));
+		 cur_distance = selPos.Distance(botPos);
+		 
+		 if (abs(cur_angle) < abs(angle)) {
+			 angle = cur_angle;
+			 distance = cur_distance;
+		 }
+	 }
+
+	 debug_con << "angle " << angle << "";
+	 debug_con << "distance " << distance << "";
+
+	m_pSelectedBot->FireWeapon(POINTStoVector(p));
   }
 }
 
