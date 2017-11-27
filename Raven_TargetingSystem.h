@@ -12,6 +12,7 @@
 //-----------------------------------------------------------------------------
 #include "2d/Vector2D.h"
 #include <list>
+#include "doublefann.h"
 
 
 class Raven_Bot;
@@ -29,6 +30,7 @@ private:
   //the current target (this will be null if there is no target assigned)
   Raven_Bot*  m_pCurrentTarget;
 
+  bool useNN = false;
 
 public:
 
@@ -66,6 +68,9 @@ public:
 
   //sets the target pointer to null
   void       ClearTarget(){m_pCurrentTarget=0;}
+
+  void		UseNeuralNet(bool use) { useNN = use; }
+  bool		IsUsingNeuralNet() { return useNN; }
 };
 
 

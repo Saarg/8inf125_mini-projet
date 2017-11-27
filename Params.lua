@@ -20,6 +20,13 @@ NumCellsY = 10
 --how long the graves remain on screen
 GraveLifetime = 5
 
+-------------------------[[ NeuralNet parameters ]]----------------------------
+-------------------------------------------------------------------------------
+
+NN_LoadFromFile = 0
+NN_FileName = "WeaponSystem.net"
+NN_Layers = 3
+NN_Hidden = 3
 
 -------------------------[[ bot parameters ]]----------------------------------
 -------------------------------------------------------------------------------

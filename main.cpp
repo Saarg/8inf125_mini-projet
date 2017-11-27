@@ -109,7 +109,9 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_SCORES, UserOptions->m_bShowScore);
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_GOAL_Q, UserOptions->m_bShowGoalsOfSelectedBot);
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_INDICES, UserOptions->m_bShowNodeIndices);
-        CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_SENSED, UserOptions->m_bShowOpponentsSensedBySelectedBot);
+        CheckMenuItemAppropriately(hwnd, IDM_GAME_PAUSE, false);
+		CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, false);
+
 
       }
 
@@ -129,6 +131,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
          case 'P':
 
            g_pRaven->TogglePause();
+		   CheckMenuItemAppropriately(hwnd, IDM_GAME_PAUSE, g_pRaven->IsPaused());
 
            break;
 
@@ -163,13 +166,20 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
            break;
 
 
-         //case VK_UP:
+         case VK_ADD:
 
-         //  g_pRaven->AddBots(1); break;
+           g_pRaven->AddBots(1); break;
 
-         //case VK_DOWN:
+         case VK_OEM_MINUS:
 
-         //  g_pRaven->RemoveBot(); break;
+           g_pRaven->RemoveBot(); break;
+
+		 case 'N':
+
+			 g_pRaven->ToggleNeuralNet();
+			 CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, g_pRaven->IsUsingNN());
+
+			 break;
            
 
         }
@@ -205,7 +215,6 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
      switch(wParam)
       {
-      
 
       case IDM_GAME_LOAD:
           
@@ -237,6 +246,13 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           g_pRaven->TogglePause();
 
           break;
+
+	  case IDM_GAME_USENEURALNET:
+
+		  g_pRaven->ToggleNeuralNet();
+		  CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, true);
+
+		  break;
 
 
 

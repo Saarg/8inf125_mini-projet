@@ -25,6 +25,7 @@
 #include "game/EntityFunctionTemplates.h"
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
+#include "doublefann.h"
 
 
 class BaseGameEntity;
@@ -85,9 +86,12 @@ private:
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
 
+  const unsigned int num_input = 4;
+  const unsigned int num_output = 1;
+  
+  struct fann *ann;
+  bool UseNeuralNet = false;
 
-  
-  
 public:
   
   Raven_Game();
@@ -143,6 +147,7 @@ public:
 
 
   void        TogglePause(){m_bPaused = !m_bPaused;}
+  bool		  IsPaused() { return m_bPaused; }
   
   //this method is called when the user clicks the right mouse button.
   //The method checks to see if a bot is beneath the cursor. If so, the bot
@@ -163,6 +168,9 @@ public:
   Raven_Bot*  PossessedBot()const{return m_pSelectedBot;}
   void        ChangeWeaponOfPossessedBot(unsigned int weapon)const;
 
+  // Neural net
+  struct fann* GetNeuralNet() { return ann;  };
+
   void PlayerSwitchToNextWeapon();
   void PlayerSwitchToPreviousWeapon();
 
@@ -176,6 +184,9 @@ public:
   
   void  TagRaven_BotsWithinViewRange(BaseGameEntity* pRaven_Bot, double range)
               {TagNeighbors(pRaven_Bot, m_Bots, range);}  
+
+  void  ToggleNeuralNet();
+  bool  IsUsingNN() { return UseNeuralNet; }
 };
 
 #endif

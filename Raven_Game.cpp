@@ -54,6 +54,18 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
   else {
 	  debug_con << "No player selected " << "";
   }
+
+  if (script->GetInt("NN_LoadFromFile") > 0) {
+	  debug_con << "Loading NN: " << script->GetString("NN_FileName") << "";
+	  ann = fann_create_from_file(script->GetString("NN_FileName").c_str());
+  }
+  else {
+	  debug_con << "Creating NN with " << script->GetInt("NN_Layers") << " layers and " << script->GetInt("NN_Hidden") << " nerons per layers" << "";
+	  ann = fann_create_standard(script->GetInt("NN_Layers"), num_input, script->GetInt("NN_Hidden"), num_output);
+  }
+
+  fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
+  fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
 }
 
 
@@ -66,6 +78,9 @@ Raven_Game::~Raven_Game()
   delete m_pMap;
   
   delete m_pGraveMarkers;
+
+  fann_save(ann, "WeaponSystem.net");
+  fann_destroy(ann);
 }
 
 
@@ -280,10 +295,6 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 #ifdef LOG_CREATIONAL_STUFF
   debug_con << "Adding PLAYER with ID " << ttos(rb->ID()) << "";
 #endif
-
-  //turn last bot into human playable
-  rb->SetHumanPlayer(true);
-  m_pPlayer = rb;
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
@@ -426,6 +437,12 @@ bool Raven_Game::LoadMap(const std::string& filename)
   if (m_pMap->LoadMap(filename))
   { 
     AddBots(script->GetInt("NumBots"));
+
+	std::list<Raven_Bot*>::iterator i = m_Bots.end();
+	--i;
+
+	(*i)->SetHumanPlayer(true);
+	m_pPlayer = *i;
   
     return true;
   }
@@ -506,8 +523,8 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 {
  if (m_pSelectedBot && m_pSelectedBot->isPossessed())
   {
-	 double distance = 9999999.9;
-	 double angle = 9999999.9;
+	 double distance = MaxDouble;
+	 double angle = MaxDouble;
 
 	 std::vector<Raven_Bot*> bots = GetAllBotsInFOV(m_pSelectedBot);
 
@@ -531,13 +548,53 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 		 cur_distance = selPos.Distance(botPos);
 		 
 		 if (abs(cur_angle) < abs(angle)) {
+			 fann_type calc_out[1];
+			 fann_type input[4];
+
+			 input[0] = angle;
+			 input[1] = distance;
+			 input[2] = cur_angle;
+			 input[3] = cur_distance;
+
+			 calc_out[0] = 1.0;
+			 fann_train(ann, input, calc_out);
+
 			 angle = cur_angle;
 			 distance = cur_distance;
 		 }
 	 }
 
-	 debug_con << "angle " << angle << "";
-	 debug_con << "distance " << distance << "";
+	it = bots.begin();
+	for (it; it != bots.end(); ++it)
+	{
+		double cur_distance;
+		double cur_angle;
+
+		Vector2D botPos = (*it)->Pos();
+		Vector2D selPos = m_pSelectedBot->Pos();
+		Vector2D cursor = POINTStoVector(p);
+
+		Vector2D PtoC = cursor - selPos;
+		Vector2D PtoB = botPos - selPos;
+
+		cur_angle = acos(PtoC.Dot(PtoB) / (Vec2DLength(PtoC) * Vec2DLength(PtoB)));
+		cur_distance = selPos.Distance(botPos);
+
+		if (cur_angle != angle) {
+			fann_type calc_out[1];
+			fann_type input[4];
+
+			input[0] = angle;
+			input[1] = distance;
+			input[2] = cur_angle;
+			input[3] = cur_distance;
+
+			calc_out[0] = 0.0;
+			fann_train(ann, input, calc_out);
+
+			break; // only log one no shoot for each shoot
+		}
+	}
 
 	m_pSelectedBot->FireWeapon(POINTStoVector(p));
   }
@@ -864,4 +921,15 @@ void Raven_Game::Render()
       gdi->TextAtPos(GetClientCursorPosition(), "Queuing");
     }
   }
+
+}
+
+void Raven_Game::ToggleNeuralNet() {
+	UseNeuralNet = !UseNeuralNet;
+
+	std::list<Raven_Bot*>::iterator it = m_Bots.begin();
+	for (it; it != m_Bots.end(); ++it)
+	{
+		(*it)->GetTargetSys()->UseNeuralNet(UseNeuralNet);
+	}
 }
