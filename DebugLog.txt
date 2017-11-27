@@ -81,34 +81,186 @@ Creating a grenade_launcher
 node :  140 30
 maps/Raven_DM2.map loaded okay
 Player is selected 
-Creating NN with 4 layers and 3 nerons per hidden layers
+Creating NN with 3 layers and 3 nerons per hidden layers
 Player is now in game in bot 1073
 Player Possesses bot 1073
+Add 7 to,inventory
 Add 8 to,inventory
+1
+2
+3
+4
+5
+6
+6
 Add 6 to,inventory
+6
+6
+6
+6
+6
 Add 7 to,inventory
-Add 7 to,inventory
+7
+8
+9
+10
+9
+10
+9
+10
+10
+10
 Add 8 to,inventory
-BOT 1071 IS STUCK!!
+6
 Add 7 to,inventory
-Add 7 to,inventory
-Add 6 to,inventory
+5
+5
+5
 Add 8 to,inventory
+5
+5
+5
+5
+5
+5
+5
+5
+5
+5
+5
+5
+5
+6
+6
+6
+6
+6
+6
+6
+7
+8
+8
+8
+9
+9
+9
 Player is now in game in bot 1073
 Player Possesses bot 1073
+Add 6 to,inventory
+Add 7 to,inventory
+9
+9
+9
+9
+9
+9
+9
+8
+8
+8
+8
+8
+8
+8
+8
+8
+8
+8
+8
+9
+9
+9
+9
+8
+8
+8
+8
+8
+8
+8
+9
+9
+9
+9
+9
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+9
+10
+9
+10
 Add 10 to,inventory
-Add 7 to,inventory
-Add 6 to,inventory
-Add 7 to,inventory
-Add 6 to,inventory
-Add 7 to,inventory
-Add 6 to,inventory
 Player is now in game in bot 1073
 Player Possesses bot 1073
-Creating NN with 4 layers and 3 nerons per hidden layers
+9
+9
+Add 8 to,inventory
+9
+10
+Player is now in game in bot 1073
+Player Possesses bot 1073
+Add 6 to,inventory
+8
+9
+9
+9
+9
+9
+9
+9
+10
+8
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
+9
+10
 Add 7 to,inventory
+Add 8 to,inventory
+BOT 1070 IS STUCK!!
+Add 6 to,inventory
+Add 7 to,inventory
+Add 8 to,inventory
+Player is now in game in bot 1073
+Player Possesses bot 1073
+Add 8 to,inventory
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)
 deleting raven bot (id = 1072)
 deleting raven bot (id = 1073)
+deleting raven bot (id = 1329)
+deleting raven bot (id = 1350)
+deleting raven bot (id = 1365)

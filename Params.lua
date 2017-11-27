@@ -25,7 +25,7 @@ GraveLifetime = 5
 
 NN_LoadFromFile = 0
 NN_FileName = "WeaponSystem.net"
-NN_Layers = 4
+NN_Layers = 3
 NN_Hidden = 3
 
 -------------------------[[ bot parameters ]]----------------------------------
