@@ -530,6 +530,9 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 		 if (*it == m_pSelectedBot)
 			 continue;
 
+		 if (shotCount > 10)
+			 break;
+
 		 double cur_distance;
 		 double cur_angle;
 
@@ -577,6 +580,9 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 		if (*it == m_pSelectedBot)
 			continue;
 
+		if (shotCount < 5)
+			break;
+
 		double cur_distance;
 		double cur_angle;
 
@@ -612,8 +618,7 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 			calc_out[0] = 0.0;
 			fann_train(ann, input, calc_out);
 
-			if (--shotCount)
-				break;
+			shotCount--;
 		}
 	}
 
@@ -962,8 +967,21 @@ void Raven_Game::ResetNeuralNet() {
 		ann = fann_create_from_file(script->GetString("NN_FileName").c_str());
 	}
 	else {
-		debug_con << "Creating NN with " << script->GetInt("NN_Layers") << " layers and " << script->GetInt("NN_Hidden") << " nerons per layers" << "";
-		ann = fann_create_standard(script->GetInt("NN_Layers"), num_input, script->GetInt("NN_Hidden"), num_output);
+		if (script->GetInt("NN_Layers") <= 3) {
+			debug_con << "Creating NN with " << 3 << " layers and " << script->GetInt("NN_Hidden") << " nerons per hidden layers" << "";
+
+			ann = fann_create_standard(3, num_input, script->GetInt("NN_Hidden"), num_output);
+		}
+		else if (script->GetInt("NN_Layers") == 4) {
+			debug_con << "Creating NN with " << 4 << " layers and " << script->GetInt("NN_Hidden") << " nerons per hidden layers" << "";
+
+			ann = fann_create_standard(4, num_input, script->GetInt("NN_Hidden"), script->GetInt("NN_Hidden"), num_output);
+		}
+		else if (script->GetInt("NN_Layers") >= 5) {
+			debug_con << "Creating NN with " << 5 << " layers and " << script->GetInt("NN_Hidden") << " nerons per hidden layers" << "";
+
+			ann = fann_create_standard(5, num_input, script->GetInt("NN_Hidden"), script->GetInt("NN_Hidden"), script->GetInt("NN_Hidden"), num_output);
+		}
 	}
 
 	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);

@@ -64,7 +64,7 @@ void Raven_TargetingSystem::Update()
 
 			calc_out = fann_run(m_pOwner->GetWorld()->GetNeuralNet(), input);
 
-			if (*calc_out > 0.7) {
+			if (*calc_out > 0.5) {
 				distance = cur_distance;
 				angle = cur_angle;
 				m_pCurrentTarget = *curBot;

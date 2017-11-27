@@ -4,7 +4,7 @@
 
 --the number of bots the game instantiates
 
-NumBots   = 3
+NumBots   = 5
 
 --this is the maximum number of search cycles allocated to *all* current path
 -- planning searches per update
@@ -23,10 +23,10 @@ GraveLifetime = 5
 -------------------------[[ NeuralNet parameters ]]----------------------------
 -------------------------------------------------------------------------------
 
-NN_LoadFromFile = 0
+NN_LoadFromFile = 1
 NN_FileName = "WeaponSystem.net"
-NN_Layers = 3
-NN_Hidden = 3
+NN_Layers = 4
+NN_Hidden = 4
 
 -------------------------[[ bot parameters ]]----------------------------------
 -------------------------------------------------------------------------------
