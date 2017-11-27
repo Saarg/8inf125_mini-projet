@@ -515,8 +515,6 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 {
  if (m_pSelectedBot && m_pSelectedBot->isPossessed())
   {
-	 static int shotCount = 0; //used to make sure we have 50/50 data
-
 	 double distance = MaxDouble;
 	 double angle = MaxDouble;
 
@@ -529,9 +527,6 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 	 {
 		 if (*it == m_pSelectedBot)
 			 continue;
-
-		 if (shotCount > 10)
-			 break;
 
 		 double cur_distance;
 		 double cur_angle;
@@ -566,7 +561,6 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 			 // Train network to select this target
 			 calc_out[0] = 1.0;
 			 fann_train(ann, input, calc_out);
-			 shotCount++;
 
 			 angle = cur_angle;
 			 distance = cur_distance;
@@ -579,9 +573,6 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 	{
 		if (*it == m_pSelectedBot)
 			continue;
-
-		if (shotCount < 5)
-			break;
 
 		double cur_distance;
 		double cur_angle;
@@ -618,7 +609,7 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 			calc_out[0] = 0.0;
 			fann_train(ann, input, calc_out);
 
-			shotCount--;
+			break;
 		}
 	}
 

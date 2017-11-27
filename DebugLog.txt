@@ -81,24 +81,34 @@ Creating a grenade_launcher
 node :  140 30
 maps/Raven_DM2.map loaded okay
 Player is selected 
-Loading NN: WeaponSystem.net
+Creating NN with 4 layers and 3 nerons per hidden layers
 Player is now in game in bot 1073
 Player Possesses bot 1073
+Add 8 to,inventory
+Add 6 to,inventory
+Add 7 to,inventory
 Add 7 to,inventory
 Add 8 to,inventory
+BOT 1071 IS STUCK!!
+Add 7 to,inventory
 Add 7 to,inventory
 Add 6 to,inventory
 Add 8 to,inventory
-BOT 1069 IS STUCK!!
-BOT 1070 IS STUCK!!
+Player is now in game in bot 1073
+Player Possesses bot 1073
+Add 10 to,inventory
 Add 7 to,inventory
-BOT 1072 IS STUCK!!
-BOT 1070 IS STUCK!!
-BOT 1070 IS STUCK!!
 Add 6 to,inventory
+Add 7 to,inventory
+Add 6 to,inventory
+Add 7 to,inventory
+Add 6 to,inventory
+Player is now in game in bot 1073
+Player Possesses bot 1073
+Creating NN with 4 layers and 3 nerons per hidden layers
+Add 7 to,inventory
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)
 deleting raven bot (id = 1072)
 deleting raven bot (id = 1073)
-deleting raven bot (id = 1285)
