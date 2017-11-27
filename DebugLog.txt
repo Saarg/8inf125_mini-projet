@@ -84,16 +84,58 @@ Player is selected
 Creating NN with 3 layers and 3 nerons per layers
 Player is now in game in bot 1071
 Player Possesses bot 1071
+Add 8 to,inventory
+Add 7 to,inventory
+Add 7 to,inventory
+Creating NN with 3 layers and 3 nerons per layers
+Add 6 to,inventory
+Add 8 to,inventory
+Add 7 to,inventory
+Creating NN with 3 layers and 3 nerons per layers
+BOT 1069 IS STUCK!!
+BOT 1070 IS STUCK!!
+Add 6 to,inventory
+Change Weapon to : ROCKET LAUNCHER
+Change Weapon to : RAIL GUN
+Add 8 to,inventory
+Add 7 to,inventory
+Add 6 to,inventory
+Change Weapon to : BLASTER
+Change Weapon to : ROCKET LAUNCHER
+Add 7 to,inventory
+Add 6 to,inventory
 Add 7 to,inventory
 Add 8 to,inventory
 Add 6 to,inventory
+Creating NN with 3 layers and 3 nerons per layers
 Add 7 to,inventory
-BOT 1069 IS STUCK!!
-Player is now in game in bot 1071
-Player Possesses bot 1071
-BOT 1070 IS STUCK!!
+Add 8 to,inventory
+Add 7 to,inventory
 Add 10 to,inventory
-BOT 1069 IS STUCK!!
+Change Weapon to : RAIL GUN
+Add 7 to,inventory
+Add 8 to,inventory
+Change Weapon to : GRENADE LAUNCHER
+Add 8 to,inventory
+Change Weapon to : BLASTER
+Change Weapon to : ROCKET LAUNCHER
+BOT 1070 IS STUCK!!
+Add 7 to,inventory
+Add 7 to,inventory
+Add 8 to,inventory
+Add 6 to,inventory
+Change Weapon to : RAIL GUN
+Change Weapon to : GRENADE LAUNCHER
+Change Weapon to : BLASTER
+Change Weapon to : ROCKET LAUNCHER
+Change Weapon to : RAIL GUN
+Change Weapon to : GRENADE LAUNCHER
+Add 8 to,inventory
+Creating NN with 3 layers and 3 nerons per layers
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)
+deleting raven bot (id = 1437)
+deleting raven bot (id = 1438)
+deleting raven bot (id = 1439)
+deleting raven bot (id = 1440)

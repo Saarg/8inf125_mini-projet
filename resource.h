@@ -26,6 +26,7 @@
 #define ID_GAME_USENEURALNET            40018
 #define ID_GAME_USENN                   40019
 #define IDM_GAME_USENEURALNET           40020
+#define IDM_GAME_RESETNEURALNET			40021
 
 // Next default values for new objects
 // 

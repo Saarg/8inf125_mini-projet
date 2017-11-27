@@ -3,6 +3,9 @@
 #include "Raven_Game.h"
 #include "Raven_SensoryMemory.h"
 #include "Debug/DebugConsole.h"
+#include "Raven_WeaponSystem.h"
+#include "armory/Raven_Weapon.h"
+
 
 
 
@@ -24,7 +27,7 @@ void Raven_TargetingSystem::Update()
   double distance = MaxDouble;
   double angle = MaxDouble;
 
-  m_pCurrentTarget       = 0;
+  m_pCurrentTarget = 0;
 
   //grab a list of all the opponents the owner can sense
   std::list<Raven_Bot*> SensedBots;
@@ -45,16 +48,23 @@ void Raven_TargetingSystem::Update()
 			double cur_angle = acos(forward.Dot(PtoB) / (Vec2DLength(forward) * Vec2DLength(PtoB)));
 
 			fann_type *calc_out;
-			fann_type input[4];
+			fann_type input[8];
 
 			input[0] = angle;
 			input[1] = distance;
+
 			input[2] = cur_angle;
 			input[3] = cur_distance;
 
+			input[4] = m_pOwner->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
+			input[5] = m_pOwner->GetWeaponSys()->GetCurrentWeapon()->GetType();
+
+			input[6] = (*curBot)->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
+			input[7] = (*curBot)->GetWeaponSys()->GetCurrentWeapon()->GetType();
+
 			calc_out = fann_run(m_pOwner->GetWorld()->GetNeuralNet(), input);
 
-			if (*calc_out > 0.5) {
+			if (*calc_out > 0.7) {
 				distance = cur_distance;
 				angle = cur_angle;
 				m_pCurrentTarget = *curBot;

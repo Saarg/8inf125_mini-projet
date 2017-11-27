@@ -13,6 +13,7 @@
 #include "Time/PrecisionTimer.h"
 #include "Raven_SensoryMemory.h"
 #include "Raven_WeaponSystem.h"
+#include "armory/Raven_Weapon.h"
 #include "messaging/MessageDispatcher.h"
 #include "Raven_Messages.h"
 #include "GraveMarkers.h"
@@ -55,17 +56,7 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
 	  debug_con << "No player selected " << "";
   }
 
-  if (script->GetInt("NN_LoadFromFile") > 0) {
-	  debug_con << "Loading NN: " << script->GetString("NN_FileName") << "";
-	  ann = fann_create_from_file(script->GetString("NN_FileName").c_str());
-  }
-  else {
-	  debug_con << "Creating NN with " << script->GetInt("NN_Layers") << " layers and " << script->GetInt("NN_Hidden") << " nerons per layers" << "";
-	  ann = fann_create_standard(script->GetInt("NN_Layers"), num_input, script->GetInt("NN_Hidden"), num_output);
-  }
-
-  fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
-  fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
+  ResetNeuralNet();
 }
 
 
@@ -281,6 +272,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
     rb->GetSteering()->SeparationOn();
+	rb->GetTargetSys()->UseNeuralNet(UseNeuralNet);
 
     m_Bots.push_back(rb);
 
@@ -523,11 +515,15 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 {
  if (m_pSelectedBot && m_pSelectedBot->isPossessed())
   {
+	 static int shotCount = 0; //used to make sure we have 50/50 data
+
 	 double distance = MaxDouble;
 	 double angle = MaxDouble;
 
+	 // get all bots the player sees
 	 std::vector<Raven_Bot*> bots = GetAllBotsInFOV(m_pSelectedBot);
 
+	 // Look for the bot the player is shooting at
 	 std::vector<Raven_Bot*>::iterator it = bots.begin();
 	 for (it; it != bots.end(); ++it)
 	 {
@@ -549,24 +545,38 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 		 
 		 if (abs(cur_angle) < abs(angle)) {
 			 fann_type calc_out[1];
-			 fann_type input[4];
+			 fann_type input[8];
 
+			 // Current target
 			 input[0] = angle;
 			 input[1] = distance;
+			 // New target
 			 input[2] = cur_angle;
 			 input[3] = cur_distance;
 
+			 input[4] = m_pSelectedBot->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
+			 input[5] = m_pSelectedBot->GetWeaponSys()->GetCurrentWeapon()->GetType();
+
+			 input[6] = (*it)->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
+			 input[7] = (*it)->GetWeaponSys()->GetCurrentWeapon()->GetType();
+
+			 // Train network to select this target
 			 calc_out[0] = 1.0;
 			 fann_train(ann, input, calc_out);
+			 shotCount++;
 
 			 angle = cur_angle;
 			 distance = cur_distance;
 		 }
 	 }
 
+	 // train network when not to shoot
 	it = bots.begin();
 	for (it; it != bots.end(); ++it)
 	{
+		if (*it == m_pSelectedBot)
+			continue;
+
 		double cur_distance;
 		double cur_angle;
 
@@ -580,19 +590,30 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 		cur_angle = acos(PtoC.Dot(PtoB) / (Vec2DLength(PtoC) * Vec2DLength(PtoB)));
 		cur_distance = selPos.Distance(botPos);
 
+		// if not the selected target
 		if (cur_angle != angle) {
 			fann_type calc_out[1];
-			fann_type input[4];
+			fann_type input[8];
 
+			// Current target
 			input[0] = angle;
 			input[1] = distance;
+			// New target
 			input[2] = cur_angle;
 			input[3] = cur_distance;
 
+			input[4] = m_pSelectedBot->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
+			input[5] = m_pSelectedBot->GetWeaponSys()->GetCurrentWeapon()->GetType();
+
+			input[6] = (*it)->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
+			input[7] = (*it)->GetWeaponSys()->GetCurrentWeapon()->GetType();
+
+			// Train network not to select this targe
 			calc_out[0] = 0.0;
 			fann_train(ann, input, calc_out);
 
-			break; // only log one no shoot for each shoot
+			if (--shotCount)
+				break;
 		}
 	}
 
@@ -932,4 +953,19 @@ void Raven_Game::ToggleNeuralNet() {
 	{
 		(*it)->GetTargetSys()->UseNeuralNet(UseNeuralNet);
 	}
+}
+
+void Raven_Game::ResetNeuralNet() {
+
+	if (script->GetInt("NN_LoadFromFile") > 0) {
+		debug_con << "Loading NN: " << script->GetString("NN_FileName") << "";
+		ann = fann_create_from_file(script->GetString("NN_FileName").c_str());
+	}
+	else {
+		debug_con << "Creating NN with " << script->GetInt("NN_Layers") << " layers and " << script->GetInt("NN_Hidden") << " nerons per layers" << "";
+		ann = fann_create_standard(script->GetInt("NN_Layers"), num_input, script->GetInt("NN_Hidden"), num_output);
+	}
+
+	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
+	fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
 }

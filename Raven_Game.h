@@ -187,6 +187,7 @@ public:
 
   void  ToggleNeuralNet();
   bool  IsUsingNN() { return UseNeuralNet; }
+  void  ResetNeuralNet();
 };
 
 #endif

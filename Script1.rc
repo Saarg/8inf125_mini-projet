@@ -32,7 +32,8 @@ BEGIN
         MENUITEM "Add Bot [ '+' ]",             IDM_MAP_ADDBOT
         MENUITEM "Remove Bot [ '-' ]",          IDM_GAME_REMOVEBOT
         MENUITEM "Toggle Pause [ 'P' ]",        IDM_GAME_PAUSE
-        MENUITEM "Use Neural Net [ 'N' ]",      IDM_GAME_USENEURALNET
+		MENUITEM "Use Neural Net [ 'N' ]",		IDM_GAME_USENEURALNET
+		MENUITEM "Reset Neural Net [ 'R' ]",    IDM_GAME_RESETNEURALNET
     END
     POPUP "Navigation"
     BEGIN

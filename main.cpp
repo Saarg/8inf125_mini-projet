@@ -180,6 +180,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 			 CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, g_pRaven->IsUsingNN());
 
 			 break;
+
+		 case 'R':
+
+			 g_pRaven->ResetNeuralNet();
+
+			 break;
            
 
         }
@@ -254,7 +260,11 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 		  break;
 
+	  case IDM_GAME_RESETNEURALNET:
 
+		  g_pRaven->ResetNeuralNet();
+
+		  break;
 
       case IDM_NAVIGATION_SHOW_NAVGRAPH:
 
