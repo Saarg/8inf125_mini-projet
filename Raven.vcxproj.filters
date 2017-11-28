@@ -277,6 +277,9 @@
     <ClCompile Include="goals\Goal_FollowPathSideToSide.cpp">
       <Filter>AI\goals\composite</Filter>
     </ClCompile>
+    <ClCompile Include="goals\Goal_DodgeToTarget.cpp">
+      <Filter>AI\goals\composite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -622,6 +625,9 @@
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
     <ClInclude Include="goals\Goal_FollowPathSideToSide.h">
+      <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\Goal_DodgeToTarget.h">
       <Filter>AI\goals\composite</Filter>
     </ClInclude>
   </ItemGroup>

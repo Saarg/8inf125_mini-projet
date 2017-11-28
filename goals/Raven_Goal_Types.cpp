@@ -87,6 +87,10 @@ std::string GoalTypeToString::Convert(int gt)
 
 	  return "follow_path_side_to_side";
 
+  case goal_dodge_to_target:
+
+	  return "goal_dodge_to_target";
+
   default:
 
     return "UNKNOWN GOAL TYPE!";

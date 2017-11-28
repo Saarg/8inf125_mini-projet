@@ -24,7 +24,8 @@ enum
   goal_strafe,
   goal_adjust_range,
   goal_say_phrase,
-  goal_follow_path_side_to_side
+  goal_follow_path_side_to_side,
+  goal_dodge_to_target
   
 };
 

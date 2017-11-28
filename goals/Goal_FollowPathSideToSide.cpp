@@ -6,6 +6,7 @@
 #include "Goal_NegotiateDoor.h"
 #include "misc/cgdi.h"
 #include "Goal_DodgeSideToSide.h"
+#include "Goal_DodgeToTarget.h"
 
 
 
@@ -22,6 +23,7 @@ Goal_FollowPathSideToSide::Goal_FollowPathSideToSide(Raven_Bot*pBot,
 	//-----------------------------------------------------------------------------
 	void Goal_FollowPathSideToSide::Activate()
 {
+	side = 0;
 	m_iStatus = active;
 
 	//get a reference to the next edge
@@ -37,8 +39,8 @@ Goal_FollowPathSideToSide::Goal_FollowPathSideToSide(Raven_Bot*pBot,
 	{
 	case NavGraphEdge::normal:
 	{
+		AddSubgoal(new Goal_DodgeToTarget(m_pOwner,side));
 		AddSubgoal(new Goal_TraverseEdge(m_pOwner, edge, m_Path.empty()));
-		AddSubgoal(new Goal_DodgeSideToSide(m_pOwner));
 	}
 
 	break;
@@ -47,8 +49,9 @@ Goal_FollowPathSideToSide::Goal_FollowPathSideToSide(Raven_Bot*pBot,
 	{
 
 		//also add a goal that is able to handle opening the door
+		//AddSubgoal(new Goal_DodgeToTarget(m_pOwner));
 		AddSubgoal(new Goal_NegotiateDoor(m_pOwner, edge, m_Path.empty()));
-		AddSubgoal(new Goal_DodgeSideToSide(m_pOwner));
+		
 	}
 
 	break;
@@ -82,7 +85,7 @@ int Goal_FollowPathSideToSide::Process()
 	ActivateIfInactive();
 
 	m_iStatus = ProcessSubgoals();
-
+	side++;
 	//if there are no subgoals present check to see if the path still has edges.
 	//remaining. If it does then call activate to grab the next edge.
 	if (m_iStatus == completed && !m_Path.empty())

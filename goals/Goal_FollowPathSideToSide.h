@@ -23,6 +23,7 @@ private:
 
 	//a local copy of the path returned by the path planner
 	std::list<PathEdge>  m_Path;
+	int side;
 
 public:
 
