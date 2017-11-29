@@ -24,8 +24,7 @@ Raven_TargetingSystem::Raven_TargetingSystem(Raven_Bot* owner):m_pOwner(owner),
 void Raven_TargetingSystem::Update()
 {
   double ClosestDistSoFar = MaxDouble;
-  double distance = MaxDouble;
-  double angle = MaxDouble;
+  double aimProb = 0.5;
 
   m_pCurrentTarget = 0;
 
@@ -42,32 +41,21 @@ void Raven_TargetingSystem::Update()
 		double cur_distance = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
 
 		if (useNN) {
-			Vector2D forward = m_pOwner->Facing();
-			Vector2D PtoB = (*curBot)->Pos() - m_pOwner->Pos();
-
-			double cur_angle = acos(forward.Dot(PtoB) / (Vec2DLength(forward) * Vec2DLength(PtoB)));
-
 			fann_type *calc_out;
-			fann_type input[8];
+			fann_type input[4];
 
-			input[0] = angle;
-			input[1] = distance;
+			input[0] = (*curBot)->Health();
+			input[1] = cur_distance;
 
-			input[2] = cur_angle;
-			input[3] = cur_distance;
-
-			input[4] = m_pOwner->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
-			input[5] = m_pOwner->GetWeaponSys()->GetCurrentWeapon()->GetType();
-
-			input[6] = (*curBot)->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
-			input[7] = (*curBot)->GetWeaponSys()->GetCurrentWeapon()->GetType();
+			input[2] = m_pOwner->GetWeaponSys()->GetCurrentWeapon()->GetIdealRange();
+			input[3] = m_pOwner->GetWeaponSys()->GetCurrentWeapon()->GetType();
 
 			calc_out = fann_run(m_pOwner->GetWorld()->GetNeuralNet(), input);
 
-			if (*calc_out > 0.5) {
-				distance = cur_distance;
-				angle = cur_angle;
+			if (*calc_out > aimProb) {
 				m_pCurrentTarget = *curBot;
+				aimProb = *calc_out;
+				ClosestDistSoFar = cur_distance;
 			}
 		}
 	  else if (cur_distance < ClosestDistSoFar)
