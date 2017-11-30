@@ -6,6 +6,7 @@
 #include "../lua/Raven_Scriptor.h"
 #include "fuzzy/FuzzyOperators.h"
 
+#include "Debug/DebugConsole.h"
 
 //--------------------------- ctor --------------------------------------------
 //-----------------------------------------------------------------------------
@@ -47,8 +48,15 @@ inline void GrenadeLauncher::ShootAt(Vector2D pos)
 {
 	if (isReadyForNextShot())
 	{
+		double maxDist = script->GetDouble("Grenade_MaxDistance");
+
+		Vector2D diff = pos - m_pOwner->Pos();
+		diff.Truncate(maxDist);
+
+		Vector2D target = m_pOwner->Pos() + diff;
+
 		//fire!
-		m_pOwner->GetWorld()->AddGrenade(m_pOwner, pos);
+		m_pOwner->GetWorld()->AddGrenade(m_pOwner, target);
 
 		UpdateTimeWeaponIsNextAvailable();
 

@@ -156,7 +156,6 @@ void  Raven_WeaponSystem::AddWeapon(unsigned int weapon_type)
   else
   {
     m_WeaponMap[weapon_type] = w;
-	debug_con << "Add " << weapon_type << " to,inventory" << "";
   }
 }
 

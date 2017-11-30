@@ -30,6 +30,8 @@ Grenade::Grenade(Raven_Bot* shooter, Vector2D target) :
 	m_dBlastRadius(script->GetDouble("Grenade_BlastRadius"))
 {
 	assert(target != Vector2D());
+
+	m_dRemainingTime = script->GetDouble("Grenade_Timer");
 }
 
 
@@ -37,7 +39,7 @@ Grenade::Grenade(Raven_Bot* shooter, Vector2D target) :
 //-----------------------------------------------------------------------------
 void Grenade::Update()
 {
-	if (!m_bImpacted)
+	if (!m_bHasReachTarget)
 	{
 		m_vVelocity = MaxSpeed() * Heading();
 
@@ -49,8 +51,12 @@ void Grenade::Update()
 
 		TestForImpact();
 	}
+	else {
+		//if the grenade is set, timer is decreasing
+		DecreaseTimer();
+	}
 
-	else
+	if(m_bImpacted)
 	{
 		m_dCurrentBlastRadius += script->GetDouble("Grenade_ExplosionDecayRate");
 
@@ -115,6 +121,16 @@ void Grenade::TestForImpact()
 	const double tolerance = 5.0;
 	if (Vec2DDistanceSq(Pos(), m_vTarget) < tolerance*tolerance)
 	{
+		m_bHasReachTarget = true;
+	}
+}
+
+void Grenade::DecreaseTimer()
+{
+	double step = script->GetDouble("Grenade_TimerRate");
+	m_dRemainingTime -= step;
+
+	if (m_dRemainingTime < 0) {
 		m_bImpacted = true;
 
 		InflictDamageOnBotsWithinBlastRadius();
@@ -151,8 +167,8 @@ void Grenade::InflictDamageOnBotsWithinBlastRadius()
 //-----------------------------------------------------------------------------
 void Grenade::Render()
 {
-	gdi->RedPen();
-	gdi->OrangeBrush();
+	gdi->DarkGreenPen();
+	gdi->GreenBrush();
 	gdi->Circle(Pos(), 2);
 
 	if (m_bImpacted)

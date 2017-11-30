@@ -25,6 +25,14 @@ private:
 	//this is used to render the splash when the grenade impacts
 	double    m_dCurrentBlastRadius;
 
+	//true if the grenade has reach its final place but is waiting to explode
+	bool	  m_bHasReachTarget;
+
+	//remaining time before explosion
+	double m_dRemainingTime;
+
+	void DecreaseTimer();
+
 	//If the grenade has impacted we test all bots to see if they are within the 
 	//blast radius and reduce their health accordingly
 	void InflictDamageOnBotsWithinBlastRadius();

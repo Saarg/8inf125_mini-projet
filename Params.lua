@@ -202,3 +202,6 @@ Grenade_MaxForce    = 10.0
 Grenade_Scale       = Bot_Scale
 Grenade_Damage      = 30
 Grenade_ExplosionDecayRate = 2.0   --how fast the explosion occurs (in secs)  
+Grenade_MaxDistance = 50
+Grenade_Timer		= 10
+Grenade_TimerRate	= 0.1

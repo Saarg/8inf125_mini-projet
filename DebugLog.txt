@@ -81,61 +81,13 @@ Creating a grenade_launcher
 node :  140 30
 maps/Raven_DM2.map loaded okay
 Player is selected 
-Creating NN with 3 layers and 3 nerons per hidden layers
-Player is now in game in bot 1073
-Player Possesses bot 1073
-Add 7 to,inventory
-Add 8 to,inventory
-Add 7 to,inventory
-Add 6 to,inventory
-Add 8 to,inventory
-Add 10 to,inventory
-Add 7 to,inventory
-Add 8 to,inventory
-Add 7 to,inventory
-Change Weapon to : ROCKET LAUNCHER
-Add 6 to,inventory
-Add 8 to,inventory
+Player is now in game in bot 1071
+Player Possesses bot 1071
+Player Possesses bot 1071
+Change Weapon to : GRENADE LAUNCHER
 Change Weapon to : BLASTER
-Add 6 to,inventory
-Add 8 to,inventory
-BOT 1070 IS STUCK!!
-BOT 1072 IS STUCK!!
-Add 8 to,inventory
-Player is now in game in bot 1073
-Player Possesses bot 1073
-Add 10 to,inventory
-BOT 1942 IS STUCK!!
-Add 8 to,inventory
-Add 8 to,inventory
-Add 7 to,inventory
-Creating NN with 3 layers and 3 nerons per hidden layers
-Add 6 to,inventory
-BOT 1964 IS STUCK!!
-BOT 1971 IS STUCK!!
-BOT 1945 IS STUCK!!
-Add 7 to,inventory
-Add 8 to,inventory
-BOT 1942 IS STUCK!!
-Add 8 to,inventory
-Add 7 to,inventory
-BOT 1964 IS STUCK!!
-Add 6 to,inventory
+Change Weapon to : GRENADE LAUNCHER
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)
-deleting raven bot (id = 1072)
-deleting raven bot (id = 1073)
-deleting raven bot (id = 1940)
-deleting raven bot (id = 1941)
-deleting raven bot (id = 1942)
-deleting raven bot (id = 1943)
-deleting raven bot (id = 1944)
-deleting raven bot (id = 1945)
-deleting raven bot (id = 1946)
-deleting raven bot (id = 1947)
-deleting raven bot (id = 1963)
-deleting raven bot (id = 1964)
-deleting raven bot (id = 1967)
-deleting raven bot (id = 1970)
-deleting raven bot (id = 1971)
+>>>>>>> grenade
