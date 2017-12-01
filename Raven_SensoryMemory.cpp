@@ -144,9 +144,9 @@ Raven_SensoryMemory::GetListOfRecentlySensedOpponents()const
 {
   //this will store all the opponents the bot can remember
   std::list<Raven_Bot*> opponents;
-
+  
   double CurrentTime = Clock->GetCurrentTime();
-
+  
   MemoryMap::const_iterator curRecord = m_MemoryMap.begin();
   for (curRecord; curRecord!=m_MemoryMap.end(); ++curRecord)
   {
@@ -156,7 +156,7 @@ Raven_SensoryMemory::GetListOfRecentlySensedOpponents()const
       opponents.push_back(curRecord->first);
     }
   }
-
+  
   return opponents;
 }
 

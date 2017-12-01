@@ -91,7 +91,18 @@ private:
   
   struct fann *ann;
   bool UseNeuralNet = false;
+  
+  //indicates if teams are used
+  bool							   m_bTeam = false;
 
+  //lists of bots in each team
+  std::list<Raven_Bot*>			   m_BlueTeam;
+  std::list<Raven_Bot*>			   m_RedTeam;
+
+  //bases for loot
+  Vector2D						   m_vBlueBase;
+  Vector2D						   m_vRedBase;
+  
 public:
   
   Raven_Game();
@@ -188,6 +199,10 @@ public:
   void  ToggleNeuralNet();
   bool  IsUsingNN() { return UseNeuralNet; }
   void  ResetNeuralNet();
+
+  void  ToggleTeam();
+  bool  IsUsingTeam() { return m_bTeam; }
+  std::list<Raven_Bot*> getTeam(std::string teamName);
 };
 
 #endif

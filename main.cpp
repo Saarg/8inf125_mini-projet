@@ -104,6 +104,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SMOOTH_PATHS_QUICK, UserOptions->m_bSmoothPathsQuick);
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SMOOTH_PATHS_PRECISE, UserOptions->m_bSmoothPathsPrecise);
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_HEALTH, UserOptions->m_bShowBotHealth);
+		CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_TEAM, UserOptions->m_bShowBotTeam);
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_TARGET, UserOptions->m_bShowTargetOfSelectedBot);
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_FOV, UserOptions->m_bOnlyShowBotsInTargetsFOV);
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_SCORES, UserOptions->m_bShowScore);
@@ -111,6 +112,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_INDICES, UserOptions->m_bShowNodeIndices);
         CheckMenuItemAppropriately(hwnd, IDM_GAME_PAUSE, false);
 		CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, false);
+		CheckMenuItemAppropriately(hwnd, IDM_GAME_TEAM, false);
 
 
       }
@@ -186,7 +188,13 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 			 g_pRaven->ResetNeuralNet();
 
 			 break;
-           
+
+		 case 'T':
+
+			 g_pRaven->ToggleTeam();
+			 CheckMenuItemAppropriately(hwnd, IDM_GAME_TEAM, g_pRaven->IsUsingTeam());
+
+			 break;           
 
         }
       }
@@ -265,7 +273,14 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		  g_pRaven->ResetNeuralNet();
 
 		  break;
+		  
+	  case IDM_GAME_TEAM:
 
+		  g_pRaven->ToggleTeam();
+		  CheckMenuItemAppropriately(hwnd, IDM_GAME_TEAM, true);
+
+		  break;
+		  
       case IDM_NAVIGATION_SHOW_NAVGRAPH:
 
         UserOptions->m_bShowGraph = !UserOptions->m_bShowGraph;
@@ -323,6 +338,14 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_HEALTH, UserOptions->m_bShowBotHealth);
 
         break;
+
+	  case IDM_BOTS_SHOW_TEAM:
+
+		  UserOptions->m_bShowBotTeam = !UserOptions->m_bShowBotTeam;
+
+		  CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_TEAM, UserOptions->m_bShowBotTeam);
+
+		  break;
 
       case IDM_BOTS_SHOW_TARGET:
 

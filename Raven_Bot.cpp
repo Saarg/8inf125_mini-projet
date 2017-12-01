@@ -11,6 +11,7 @@
 #include "time/Regulator.h"
 #include "Raven_WeaponSystem.h"
 #include "Raven_SensoryMemory.h"
+#include "armory/Raven_Weapon.h"
 
 #include "Messaging/Telegram.h"
 #include "Raven_Messages.h"
@@ -122,6 +123,21 @@ void Raven_Bot::Spawn(Vector2D pos)
 		this->TurnIntoPlayable();
 }
 
+//------------------------------- DropITems -----------------------------------
+//
+//  Drop his items in his teamBase if team behavior is activate
+//-----------------------------------------------------------------------------
+void Raven_Bot::DropItems()
+{
+	if (GetWorld()->IsUsingTeam()) {
+		Raven_Weapon* weapon;
+		for (auto& w : GetWeaponSys()->GetAllWeapons()) {
+			weapon = w.second;
+			GetWorld()->GetMap()->AddWeapon_Giver(weapon->GetType());
+		}
+	}
+}
+
 //-------------------------------- Update -------------------------------------
 //
 void Raven_Bot::Update()
@@ -136,36 +152,71 @@ void Raven_Bot::Update()
 
   //if the bot is under AI control but not scripted
   if (!isPossessed())
-  {           
-    //examine all the opponents in the bots sensory memory and select one
-    //to be the current target
-    if (m_pTargetSelectionRegulator->isReady())
-    {      
-      m_pTargSys->Update();
-    }
+  {
+	  if (!m_pWorld->IsUsingTeam())
+	  {
+		  //examine all the opponents in the bots sensory memory and select one
+		  //to be the current target
+		  if (m_pTargetSelectionRegulator->isReady())
+		  {
+			  m_pTargSys->Update();
+		  }
 
-    //appraise and arbitrate between all possible high level goals
-    if (m_pGoalArbitrationRegulator->isReady())
-    {
-       m_pBrain->Arbitrate(); 
-    }
+		  //appraise and arbitrate between all possible high level goals
+		  if (m_pGoalArbitrationRegulator->isReady())
+		  {
+			  m_pBrain->Arbitrate();
+		  }
 
-    //update the sensory memory with any visual stimulus
-    if (m_pVisionUpdateRegulator->isReady())
-    {
-      m_pSensoryMem->UpdateVision();
-    }
-  
-    //select the appropriate weapon to use from the weapons currently in
-    //the inventory
-    if (m_pWeaponSelectionRegulator->isReady())
-    {       
-      m_pWeaponSys->SelectWeapon();       
-    }
+		  //update the sensory memory with any visual stimulus
+		  if (m_pVisionUpdateRegulator->isReady())
+		  {
+			  m_pSensoryMem->UpdateVision();
+		  }
 
-    //this method aims the bot's current weapon at the current target
-    //and takes a shot if a shot is possible
-    m_pWeaponSys->TakeAimAndShoot();
+		  //select the appropriate weapon to use from the weapons currently in
+		  //the inventory
+		  if (m_pWeaponSelectionRegulator->isReady())
+		  {
+			  m_pWeaponSys->SelectWeapon();
+		  }
+
+		  //this method aims the bot's current weapon at the current target
+		  //and takes a shot if a shot is possible
+		  m_pWeaponSys->TakeAimAndShoot();
+	  }
+	  else
+	  {
+		  //examine all the opponents in the bots sensory memory and select one
+		  //to be the current target
+		  if (m_pTargetSelectionRegulator->isReady())
+		  {
+			  m_pTargSys->Update();
+		  }
+
+		  //appraise and arbitrate between all possible high level goals
+		  if (m_pGoalArbitrationRegulator->isReady())
+		  {
+			  m_pBrain->Arbitrate();
+		  }
+
+		  //update the sensory memory with any visual stimulus
+		  if (m_pVisionUpdateRegulator->isReady())
+		  {
+			  m_pSensoryMem->UpdateVision();
+		  }
+
+		  //select the appropriate weapon to use from the weapons currently in
+		  //the inventory
+		  if (m_pWeaponSelectionRegulator->isReady())
+		  {
+			  m_pWeaponSys->SelectWeapon();
+		  }
+
+		  //this method aims the bot's current weapon at the current target
+		  //and takes a shot if a shot is possible
+		  m_pWeaponSys->TakeAimAndShoot();
+	  }
   }
 
 }
@@ -343,6 +394,7 @@ void Raven_Bot::ReduceHealth(unsigned int val)
   if (m_iHealth <= 0)
   {
     SetDead();
+	//DropItems();
   }
 
   m_bHit = true;
@@ -398,6 +450,20 @@ void Raven_Bot::TurnIntoPlayable()
 void Raven_Bot::ChangeWeapon(unsigned int type)
 {
   m_pWeaponSys->ChangeWeapon(type);
+}
+
+
+//----------------------- getEnnemyTeam ----------------------------------------
+std::list<Raven_Bot*> Raven_Bot::getEnnemyTeam()
+{
+	std::list<Raven_Bot*> myTeam = m_pWorld->getTeam(m_sTeamMembership);
+	std::list<Raven_Bot*> ennemies = m_pWorld->GetAllBots();
+
+	for (std::list<Raven_Bot*>::iterator it = myTeam.begin(); it != myTeam.end(); it++){
+		ennemies.remove(*it);
+	}
+
+	return ennemies;
 }
   
 
@@ -552,12 +618,17 @@ void Raven_Bot::Render()
 
   if (UserOptions->m_bShowBotIDs)
   {
-    gdi->TextAtPos(Pos().x -10, Pos().y-20, ttos(ID()));
+    gdi->TextAtPos(Pos().x -10, Pos().y-40, ttos(ID()));
   }
 
   if (UserOptions->m_bShowBotHealth)
   {
     gdi->TextAtPos(Pos().x-40, Pos().y-5, "H:"+ ttos(Health()));
+  }
+
+  if (UserOptions->m_bShowBotTeam)
+  {
+	  gdi->TextAtPos(Pos().x - 40, Pos().y - 20, m_sTeamMembership);
   }
 
   if (UserOptions->m_bShowScore)

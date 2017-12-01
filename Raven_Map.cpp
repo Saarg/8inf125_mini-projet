@@ -190,6 +190,8 @@ bool Raven_Map::LoadMap(const std::string& filename)
   
   m_pNavGraph->Load(in);
 
+  m_sMapFile = filename;
+
 #ifdef LOG_CREATIONAL_STUFF
     debug_con << "NavGraph for " << filename << " loaded okay" << "";
 #endif
@@ -415,4 +417,11 @@ void Raven_Map::Render()
     gdi->GreyPen();
     gdi->Circle(*curSp, 7);
   }
+}
+
+
+void Raven_Map::AddWeapon_Giver(int type_of_weapon)
+{
+	std::ifstream in(m_sMapFile.c_str());
+	AddWeapon_Giver(type_of_weapon, in);
 }

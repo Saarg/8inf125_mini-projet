@@ -71,6 +71,8 @@ public:
 
   void		UseNeuralNet(bool use) { useNN = use; }
   bool		IsUsingNeuralNet() { return useNN; }
+
+  void		 SetTarget(Raven_Bot* target);
 };
 
 

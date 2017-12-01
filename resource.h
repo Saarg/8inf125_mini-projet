@@ -11,22 +11,24 @@
 #define IDM_NAVIGATION_SMOOTH_PATHS_QUICK 40005
 #define IDM_BOTS_SHOW_IDS               40006
 #define IDM_BOTS_SHOW_HEALTH            40007
-#define IDM_BOTS_SHOW_TARGET            40008
-#define IDM_BOTS_SHOW_FOV               40009
-#define IDM_BOTS_SHOW_SCORES            40010
-#define IDM_BOTS_SHOW_GOAL_Q            40011
-#define IDM_NAVIGATION_SHOW_INDICES     40012
-#define IDM_MAP_ADDBOT                  40013
-#define IDM_GAME_ADDBOT                 40013
-#define IDM_MAP_REMOVEBOT               40014
-#define IDM_GAME_REMOVEBOT              40014
-#define IDM_NAVIGATION_SMOOTH_PATHS_PRECISE 40015
-#define IDM_BOTS_SHOW_SENSED            40016
-#define IDM_GAME_PAUSE                  40017
-#define ID_GAME_USENEURALNET            40018
-#define ID_GAME_USENN                   40019
-#define IDM_GAME_USENEURALNET           40020
-#define IDM_GAME_RESETNEURALNET			40021
+#define IDM_BOTS_SHOW_TEAM	            40008
+#define IDM_BOTS_SHOW_TARGET            40009
+#define IDM_BOTS_SHOW_FOV               40010
+#define IDM_BOTS_SHOW_SCORES            40011
+#define IDM_BOTS_SHOW_GOAL_Q            40012
+#define IDM_NAVIGATION_SHOW_INDICES     40013
+#define IDM_MAP_ADDBOT                  40014
+#define IDM_GAME_ADDBOT                 40014
+#define IDM_MAP_REMOVEBOT               40015
+#define IDM_GAME_REMOVEBOT              40015
+#define IDM_NAVIGATION_SMOOTH_PATHS_PRECISE 40016
+#define IDM_BOTS_SHOW_SENSED            40017
+#define IDM_GAME_PAUSE                  40018
+#define ID_GAME_USENEURALNET            40019
+#define ID_GAME_USENN                   40020
+#define IDM_GAME_USENEURALNET           40021
+#define IDM_GAME_RESETNEURALNET			40022
+#define IDM_GAME_TEAM					40023
 
 // Next default values for new objects
 // 

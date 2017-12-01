@@ -69,6 +69,9 @@ private:
 
   int m_iSizeX;
   int m_iSizeY;
+
+  //The name of the file loaded to draw the map
+  std::string						m_sMapFile;
   
   void  PartitionNavGraph();
 
@@ -96,6 +99,9 @@ public:
 
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 
+
+
+  void AddWeapon_Giver(int type_of_weapon);
 
   //adds a wall and returns a pointer to that wall. (this method can be
   //used by objects such as doors to add walls to the environment)

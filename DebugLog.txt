@@ -81,13 +81,16 @@ Creating a grenade_launcher
 node :  140 30
 maps/Raven_DM2.map loaded okay
 Player is selected 
-Player is now in game in bot 1071
-Player Possesses bot 1071
-Player Possesses bot 1071
-Change Weapon to : GRENADE LAUNCHER
-Change Weapon to : BLASTER
-Change Weapon to : GRENADE LAUNCHER
+Creating NN with 3 layers and 3 nerons per hidden layers
+Player is now in game in bot 1073
+Player Possesses bot 1073
+BOT 1091 IS STUCK!!
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)
->>>>>>> grenade
+deleting raven bot (id = 1072)
+deleting raven bot (id = 1073)
+deleting raven bot (id = 1091)
+deleting raven bot (id = 1092)
+deleting raven bot (id = 1195)
+deleting raven bot (id = 1575)

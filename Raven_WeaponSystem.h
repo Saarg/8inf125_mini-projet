@@ -113,6 +113,8 @@ public:
   void			NextWeapon();
   void			PreviousWeapon();
   void			LogWeapon(unsigned int);
+
+  WeaponMap		GetAllWeapons() { return m_WeaponMap; }
 };
 
 #endif

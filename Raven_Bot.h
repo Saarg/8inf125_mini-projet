@@ -117,6 +117,9 @@ private:
   //the buffer for the transformed vertices
   std::vector<Vector2D>              m_vecBotVBTrans;
 
+  //color of his team
+  std::string						 m_sTeamMembership;
+
 
   //bots shouldn't be copied, only created or respawned
   Raven_Bot(const Raven_Bot&);
@@ -176,12 +179,18 @@ public:
   void          SetDead(){m_Status = dead;}
   void          SetAlive(){m_Status = alive;}
 
+  std::string	teamName() { return m_sTeamMembership; }
+  void			setTeam(std::string teamName) { m_sTeamMembership = teamName; }
+
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.
   double        CalculateTimeToReachPosition(Vector2D pos)const; 
 
   //returns true if the bot is close to the given position
   bool          isAtPosition(Vector2D pos)const;
+
+  //return the list of all bots in ennemy team(s)
+  std::list<Raven_Bot*> getEnnemyTeam();
 
 
   //interface for human player
@@ -194,6 +203,8 @@ public:
 
   //spawns the bot at the given position
   void          Spawn(Vector2D pos);
+
+  void			DropItems();
   
   //returns true if this bot is ready to test against all triggers
   bool          isReadyForTriggerUpdate()const;

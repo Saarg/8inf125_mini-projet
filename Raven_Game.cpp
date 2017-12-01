@@ -47,6 +47,8 @@ m_pGraveMarkers(NULL)
 {
 	//load in the default map
 	LoadMap(script->GetString("StartMap"));
+	m_vBlueBase = Vector2D(m_pMap->GetSizeX() - 20, 20);
+	m_vRedBase = Vector2D(20, m_pMap->GetSizeY() - 20);
 
 	if (m_pPlayer != NULL) {
 		m_pSelectedBot = m_pPlayer;
@@ -204,6 +206,11 @@ void Raven_Game::Update()
 			NotifyAllBotsOfRemoval(pBot);
 			delete m_Bots.back();
 			m_Bots.remove(pBot);
+			//remove pBot from the team into which he is
+			if (m_bTeam) {
+				m_BlueTeam.remove(pBot);
+				m_RedTeam.remove(pBot);
+			}
 			pBot = 0;
 		}
 
@@ -275,6 +282,16 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 		rb->GetTargetSys()->UseNeuralNet(UseNeuralNet);
 
 		m_Bots.push_back(rb);
+		if (m_bTeam) {
+			if (m_BlueTeam.size() <= m_RedTeam.size()) {
+				m_BlueTeam.push_back(rb);
+				rb->setTeam("BlueTeam");
+			}
+			else {
+				m_RedTeam.push_back(rb);
+				rb->setTeam("RedTeam");
+			}
+		}
 
 		//register the bot with the entity manager
 		EntityMgr->RegisterEntity(rb);
@@ -984,4 +1001,41 @@ void Raven_Game::ResetNeuralNet() {
 
 	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
 	fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
+}
+
+
+//------------------------- ToggleTeam ----------------------------------------
+//
+//				activate or desactivate team behavior
+//-----------------------------------------------------------------------------
+void Raven_Game::ToggleTeam() {
+	m_bTeam = !m_bTeam;
+
+	if (m_bTeam) {
+		int next = 0;
+		Raven_Bot* bot;
+		for (std::list<Raven_Bot*>::iterator it = m_Bots.begin(); it != m_Bots.end(); it++) {
+			bot = *it;
+			if (next == 0) { m_BlueTeam.push_back(bot); bot->setTeam("BlueTeam"); }
+			else { m_RedTeam.push_back(bot); bot->setTeam("RedTeam"); }
+			next = (next + 1) % 2;
+		}
+	}
+	else {
+		m_BlueTeam.clear();
+		m_RedTeam.clear();
+		for (std::list<Raven_Bot*>::iterator it = m_Bots.begin(); it != m_Bots.end(); it++) {
+			(*it)->setTeam("");
+		}
+	}
+}
+
+//------------------------- getTeam ----------------------------------------
+//
+//				return all bots in the team teamName
+//-----------------------------------------------------------------------------
+std::list<Raven_Bot*> Raven_Game::getTeam(std::string teamName)
+{
+	if (teamName == "BlueTeam") { return m_BlueTeam; }
+	else if (teamName == "RedTeam") { return m_RedTeam; }
 }
