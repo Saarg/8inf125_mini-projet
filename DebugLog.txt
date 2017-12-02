@@ -1,0 +1,99 @@
+NavGraph for maps/Raven_DM2.map loaded okay
+Average edge length is 23.6976
+Neighborhood range set to 24.6976
+Partitioning navgraph nodes...
+Loading map...
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Wall
+Creating a Spawn Point
+Creating a Spawn Point
+Creating a Spawn Point
+Creating a Health
+Creating a Health
+Creating a Health
+Creating a rocket_launcher
+node :  200 30
+Creating a Railgun
+node :  70 260
+Creating a shotgun
+node :  450 60
+Creating a shotgun
+node :  360 330
+Creating a rocket_launcher
+node :  110 380
+Creating a grenade_launcher
+node :  140 30
+maps/Raven_DM2.map loaded okay
+Player is selected 
+Creating NN with 3 layers and 3 nerons per hidden layers
+Player is now in game in bot 1073
+Player Possesses bot 1073
+Player is exorcised from bot 1073
+Player is exorcised from bot 1072
+Player is exorcised from bot 1070
+Player is exorcised from bot 1073
+Player is exorcised from bot 1069
+Player is exorcised from bot 1071
+Player is exorcised from bot 1069
+Player is exorcised from bot 1072
+deleting raven bot (id = 1069)
+deleting raven bot (id = 1070)
+deleting raven bot (id = 1071)
+deleting raven bot (id = 1072)
+deleting raven bot (id = 1073)

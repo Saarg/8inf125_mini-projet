@@ -21,7 +21,7 @@
 class Goal_DodgeToTarget : public Goal<Raven_Bot>
 {
 private:
-	float		val=0;
+	float		val=1;
 	Vector2D    m_vStrafeTarget;
 
 	bool        m_bClockwise;

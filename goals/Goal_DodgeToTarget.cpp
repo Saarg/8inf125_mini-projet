@@ -45,13 +45,13 @@ void Goal_DodgeToTarget::Activate()
 		{
 			// debug_con << "changing" << "";
 			//m_bClockwise = !m_bClockwise;
-			val = 10;
+			//val = 10;
 			m_iStatus = inactive;
 		}
 	}
 
 	if (!m_pOwner->canStepLeft(m_vStrafeTarget) && !m_pOwner->canStepRight(m_vStrafeTarget)) {
-		val = 10;
+		//val = 10;
 		m_iStatus = inactive;
 	}
 
