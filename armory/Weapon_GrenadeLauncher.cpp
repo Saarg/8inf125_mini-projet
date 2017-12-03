@@ -98,7 +98,7 @@ void GrenadeLauncher::InitializeFuzzyModule()
 	FzSet& Desirable = Desirability.AddTriangularSet("Desirable", 25, 50, 75);
 	FzSet& Undesirable = Desirability.AddLeftShoulderSet("Undesirable", 0, 25, 50);
 
-	m_FuzzyModule.AddRule(Target_Close, Desirable);
+	m_FuzzyModule.AddRule(Target_Close, VeryDesirable);
 	m_FuzzyModule.AddRule(Target_Medium, FzVery(Undesirable));
 	m_FuzzyModule.AddRule(Target_Far, FzVery(Undesirable));
 }
