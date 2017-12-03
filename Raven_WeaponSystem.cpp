@@ -63,6 +63,7 @@ void Raven_WeaponSystem::Initialize()
   m_WeaponMap[type_shotgun]         = 0;
   m_WeaponMap[type_rail_gun]        = 0;
   m_WeaponMap[type_rocket_launcher] = 0;
+  m_WeaponMap[type_grenade_launcher] = 0;
 }
 
 //-------------------------------- SelectWeapon -------------------------------

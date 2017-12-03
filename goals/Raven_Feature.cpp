@@ -48,6 +48,10 @@ double GetMaxRoundsBotCanCarryForWeapon(int WeaponType)
 
     return script->GetDouble("ShotGun_MaxRoundsCarried");
 
+  case type_grenade_launcher:
+
+	  return script->GetDouble("GrenadeLauncher_MaxRoundsCarried");
+
   default:
 
     throw std::runtime_error("trying to calculate  of unknown weapon");
@@ -82,19 +86,21 @@ double Raven_Feature::TotalWeaponStrength(Raven_Bot* pBot)
   const double MaxRoundsForShotgun = GetMaxRoundsBotCanCarryForWeapon(type_shotgun);
   const double MaxRoundsForRailgun = GetMaxRoundsBotCanCarryForWeapon(type_rail_gun);
   const double MaxRoundsForRocketLauncher = GetMaxRoundsBotCanCarryForWeapon(type_rocket_launcher);
+  const double MaxRoundsForGrenadeLauncher = GetMaxRoundsBotCanCarryForWeapon(type_grenade_launcher);
   const double TotalRoundsCarryable = MaxRoundsForShotgun + MaxRoundsForRailgun + MaxRoundsForRocketLauncher;
 
   double NumSlugs      = (double)pBot->GetWeaponSys()->GetAmmoRemainingForWeapon(type_rail_gun);
   double NumCartridges = (double)pBot->GetWeaponSys()->GetAmmoRemainingForWeapon(type_shotgun);
   double NumRockets    = (double)pBot->GetWeaponSys()->GetAmmoRemainingForWeapon(type_rocket_launcher);
+  double NumGrenade = (double)pBot->GetWeaponSys()->GetAmmoRemainingForWeapon(type_grenade_launcher);
 
   //the value of the tweaker (must be in the range 0-1) indicates how much
   //desirability value is returned even if a bot has not picked up any weapons.
   //(it basically adds in an amount for a bot's persistent weapon -- the blaster)
   const double Tweaker = 0.1;
 
-  return Tweaker + (1-Tweaker)*(NumSlugs + NumCartridges + NumRockets)/(MaxRoundsForShotgun + MaxRoundsForRailgun + MaxRoundsForRocketLauncher);
-}
+  return Tweaker + (1-Tweaker)*(NumSlugs + NumCartridges + NumRockets + NumGrenade)/(MaxRoundsForShotgun + MaxRoundsForRailgun + MaxRoundsForRocketLauncher + MaxRoundsForGrenadeLauncher);
+} 
 
 //------------------------------- HealthScore ---------------------------------
 //

@@ -84,16 +84,82 @@ Player is selected
 Creating NN with 3 layers and 3 nerons per hidden layers
 Player is now in game in bot 1073
 Player Possesses bot 1073
+BOT 1468 IS STUCK!!
+BOT 1624 IS STUCK!!
+BOT 1072 IS STUCK!!
+BOT 1145 IS STUCK!!
+BOT 1214 IS STUCK!!
+BOT 1069 IS STUCK!!
 Player is exorcised from bot 1073
-Player is exorcised from bot 1072
-Player is exorcised from bot 1070
-Player is exorcised from bot 1073
-Player is exorcised from bot 1069
-Player is exorcised from bot 1071
-Player is exorcised from bot 1069
-Player is exorcised from bot 1072
+Player is exorcised from bot 1727
+BOT 1541 IS STUCK!!
+BOT 1274 IS STUCK!!
+Player is now in game in bot 1073
+Player Possesses bot 1073
+Player is exorcised from bot 1192
+BOT 1565 IS STUCK!!
+BOT 1411 IS STUCK!!
+BOT 1377 IS STUCK!!
+BOT 1274 IS STUCK!!
+BOT 1487 IS STUCK!!
+BOT 1214 IS STUCK!!
+BOT 1124 IS STUCK!!
+BOT 1344 IS STUCK!!
+BOT 1072 IS STUCK!!
+BOT 1565 IS STUCK!!
+BOT 1239 IS STUCK!!
+BOT 1541 IS STUCK!!
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)
 deleting raven bot (id = 1072)
 deleting raven bot (id = 1073)
+deleting raven bot (id = 1107)
+deleting raven bot (id = 1110)
+deleting raven bot (id = 1124)
+deleting raven bot (id = 1129)
+deleting raven bot (id = 1130)
+deleting raven bot (id = 1133)
+deleting raven bot (id = 1136)
+deleting raven bot (id = 1139)
+deleting raven bot (id = 1140)
+deleting raven bot (id = 1145)
+deleting raven bot (id = 1150)
+deleting raven bot (id = 1153)
+deleting raven bot (id = 1160)
+deleting raven bot (id = 1178)
+deleting raven bot (id = 1183)
+deleting raven bot (id = 1192)
+deleting raven bot (id = 1199)
+deleting raven bot (id = 1214)
+deleting raven bot (id = 1239)
+deleting raven bot (id = 1252)
+deleting raven bot (id = 1274)
+deleting raven bot (id = 1293)
+deleting raven bot (id = 1300)
+deleting raven bot (id = 1324)
+deleting raven bot (id = 1331)
+deleting raven bot (id = 1344)
+deleting raven bot (id = 1351)
+deleting raven bot (id = 1377)
+deleting raven bot (id = 1398)
+deleting raven bot (id = 1411)
+deleting raven bot (id = 1426)
+deleting raven bot (id = 1448)
+deleting raven bot (id = 1461)
+deleting raven bot (id = 1468)
+deleting raven bot (id = 1487)
+deleting raven bot (id = 1500)
+deleting raven bot (id = 1511)
+deleting raven bot (id = 1526)
+deleting raven bot (id = 1541)
+deleting raven bot (id = 1565)
+deleting raven bot (id = 1591)
+deleting raven bot (id = 1624)
+deleting raven bot (id = 1641)
+deleting raven bot (id = 1662)
+deleting raven bot (id = 1687)
+deleting raven bot (id = 1704)
+deleting raven bot (id = 1727)
+deleting raven bot (id = 1765)
+deleting raven bot (id = 1778)
