@@ -133,7 +133,7 @@ void Raven_Bot::DropItems()
 		Raven_Weapon* weapon;
 		for (auto& w : GetWeaponSys()->GetAllWeapons()) {
 			weapon = w.second;
-			GetWorld()->GetMap()->AddWeapon_Giver(weapon->GetType());
+			if (weapon != NULL) { GetWorld()->GetMap()->AddWeapon_Giver(weapon->GetType(), this); }
 		}
 	}
 }
@@ -394,7 +394,7 @@ void Raven_Bot::ReduceHealth(unsigned int val)
   if (m_iHealth <= 0)
   {
     SetDead();
-	//DropItems();
+	DropItems();
   }
 
   m_bHit = true;

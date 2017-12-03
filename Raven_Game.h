@@ -26,6 +26,8 @@
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
 #include "doublefann.h"
+#include "Graph/GraphNodeTypes.h"
+#include "Triggers/Trigger.h"
 
 
 class BaseGameEntity;
@@ -37,6 +39,10 @@ class GraveMarkers;
 
 class Raven_Game
 {
+public:
+
+	typedef NavGraphNode<Trigger<Raven_Bot>*>         Graph_Node;
+
 private:
 
   //the current game map
@@ -98,15 +104,21 @@ private:
   //lists of bots in each team
   std::list<Raven_Bot*>			   m_BlueTeam;
   std::list<Raven_Bot*>			   m_RedTeam;
-
-  //bases for loot
-  Vector2D						   m_vBlueBase;
-  Vector2D						   m_vRedBase;
   
 public:
   
   Raven_Game();
   ~Raven_Game();
+
+  //bases for loot
+  Vector2D						   m_vBlueBase;
+  Vector2D						   m_vRedBase;
+
+  Graph_Node					   m_iBlueNode;
+  Graph_Node					   m_iRedNode;
+
+  int						       m_iWeaponBlueSpawn;
+  int						       m_iWeaponRedSpawn;
 
   //the usual suspects
   void Render();

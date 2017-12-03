@@ -101,7 +101,7 @@ public:
   bool LoadMap(const std::string& FileName); 
 
 
-  void AddWeapon_Giver(int type_of_weapon);
+  void AddWeapon_Giver(int type_of_weapon, Raven_Bot* bot);
 
   //adds a wall and returns a pointer to that wall. (this method can be
   //used by objects such as doors to add walls to the environment)

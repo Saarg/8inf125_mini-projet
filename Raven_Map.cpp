@@ -6,6 +6,7 @@
 #include "game/EntityManager.h"
 #include "constants.h"
 #include "lua/Raven_Scriptor.h"
+#include "Raven_Game.h"
 
 #include "triggers/Trigger_HealthGiver.h"
 #include "triggers/Trigger_WeaponGiver.h"
@@ -420,8 +421,43 @@ void Raven_Map::Render()
 }
 
 
-void Raven_Map::AddWeapon_Giver(int type_of_weapon)
+void Raven_Map::AddWeapon_Giver(int type_of_weapon, Raven_Bot* bot)
 {
-	std::ifstream in(m_sMapFile.c_str());
-	AddWeapon_Giver(type_of_weapon, in);
+	if (bot->GetWorld()->IsUsingTeam())
+	{
+		double x, y;
+		int GraphNodeInd;
+		if (bot->teamName() == "BlueTeam") {
+			x = bot->GetWorld()->m_vBlueBase.x;
+			y = bot->GetWorld()->m_vBlueBase.y;
+			GraphNodeInd = bot->GetWorld()->m_iWeaponBlueSpawn;
+		}
+		else {
+			x = bot->GetWorld()->m_vRedBase.x;
+			y = bot->GetWorld()->m_vRedBase.y;
+			GraphNodeInd = bot->GetWorld()->m_iWeaponRedSpawn;
+
+		}
+		
+		FILE* data = fopen("data.txt", "w+");
+		fprintf(data, "%f %f %f %d", x, y, 8.0, GraphNodeInd);
+		fclose(data);
+		std::ifstream in("data.txt", std::ifstream::in);
+
+		Trigger_WeaponGiver* wg = new Trigger_WeaponGiver(in);
+
+		wg->SetEntityType(type_of_weapon);
+		
+		//add it to the appropriate vectors
+		m_TriggerSystem.Register(wg);
+
+		//let the corresponding navgraph node point to this object
+		NavGraph::NodeType& node = m_pNavGraph->GetNode(wg->GraphNodeIndex());
+		debug_con << "node : " << node.Pos() << "";
+
+		node.SetExtraInfo(wg);
+
+		//register the entity 
+		EntityMgr->RegisterEntity(wg);
+	}
 }

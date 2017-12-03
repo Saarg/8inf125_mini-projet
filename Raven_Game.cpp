@@ -35,7 +35,6 @@
 //uncomment to write object creation/deletion to debug console
 //#define  LOG_CREATIONAL_STUFF
 
-
 //----------------------------- ctor ------------------------------------------
 //-----------------------------------------------------------------------------
 Raven_Game::Raven_Game() :m_pSelectedBot(NULL),
@@ -48,7 +47,13 @@ m_pGraveMarkers(NULL)
 	//load in the default map
 	LoadMap(script->GetString("StartMap"));
 	m_vBlueBase = Vector2D(m_pMap->GetSizeX() - 20, 20);
-	m_vRedBase = Vector2D(20, m_pMap->GetSizeY() - 20);
+	m_vRedBase  = Vector2D(20, m_pMap->GetSizeY() - 20);
+
+	m_iBlueNode = Graph_Node(m_pMap->GetNavGraph().GetNextFreeNodeIndex(), m_vBlueBase);
+	m_iWeaponBlueSpawn = m_pMap->GetNavGraph().AddNode(m_iBlueNode);
+
+	m_iRedNode  = Graph_Node(m_pMap->GetNavGraph().GetNextFreeNodeIndex(), m_vRedBase);
+	m_iWeaponRedSpawn  = m_pMap->GetNavGraph().AddNode(m_iRedNode);
 
 	if (m_pPlayer != NULL) {
 		m_pSelectedBot = m_pPlayer;
