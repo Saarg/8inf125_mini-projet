@@ -9,6 +9,7 @@
 #include "Raven_SteeringBehaviors.h"
 #include "Raven_UserOptions.h"
 #include "time/Regulator.h"
+#include "armory/Raven_Weapon.h"
 #include "Raven_WeaponSystem.h"
 #include "Raven_SensoryMemory.h"
 
@@ -343,6 +344,9 @@ void Raven_Bot::ReduceHealth(unsigned int val)
   if (m_iHealth <= 0)
   {
     SetDead();
+
+	// drop weapon
+	GetWorld()->GetMap()->AddWeapon_Giver(GetWeaponSys()->GetCurrentWeapon()->GetType(), Pos().x, Pos().y, 1, GetPathPlanner()->GetClosestNodeToPosition(Pos()));
   }
 
   m_bHit = true;
@@ -548,7 +552,9 @@ void Raven_Bot::Render()
   }
 
   gdi->TransparentText();
-  gdi->TextColor(0,255,0);
+  gdi->TextColor(0, 255, 0);
+  if (m_Team == 2)
+	gdi->TextColor(255, 0, 0);
 
   if (UserOptions->m_bShowBotIDs)
   {
@@ -564,6 +570,10 @@ void Raven_Bot::Render()
   {
     gdi->TextAtPos(Pos().x-40, Pos().y+10, "Scr:"+ ttos(Score()));
   }    
+  
+  if (m_Team) {
+	  gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "Team " + std::to_string(m_Team));
+  }
 }
 
 //------------------------- SetUpVertexBuffer ---------------------------------

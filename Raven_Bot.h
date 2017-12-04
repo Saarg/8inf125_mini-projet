@@ -41,6 +41,8 @@ private:
 
 private:
 
+  int								 m_Team;
+
   //alive, dead or spawning?
   Status                             m_Status;
 
@@ -227,7 +229,8 @@ public:
   Raven_WeaponSystem* const          GetWeaponSys()const{return m_pWeaponSys;}
   Raven_SensoryMemory* const         GetSensoryMem()const{return m_pSensoryMem;}
 
-
+  int const	GetTeam() { return m_Team; }
+  void SetTeam(int value) { m_Team = value; }
 };
 
 

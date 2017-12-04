@@ -262,6 +262,8 @@ bool Raven_Game::AttemptToAddBot(Raven_Bot* pBot)
 //-----------------------------------------------------------------------------
 void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 {
+	static int team = 0;
+
 	Raven_Bot* rb;
 	while (NumBotsToAdd--)
 	{
@@ -272,7 +274,12 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 		//switch the default steering behaviors on
 		rb->GetSteering()->WallAvoidanceOn();
 		rb->GetSteering()->SeparationOn();
-		rb->GetTargetSys()->UseNeuralNet(UseNeuralNet);
+		rb->GetTargetSys()->UseNeuralNet(m_useNeuralNet);
+		
+		if (m_useTeam)
+			rb->SetTeam((team++ % 2) + 1);
+		else
+			rb->SetTeam(0);
 
 		m_Bots.push_back(rb);
 
@@ -283,10 +290,6 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 		debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif
 	}
-
-#ifdef LOG_CREATIONAL_STUFF
-	debug_con << "Adding PLAYER with ID " << ttos(rb->ID()) << "";
-#endif
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
@@ -435,6 +438,10 @@ bool Raven_Game::LoadMap(const std::string& filename)
 
 		(*i)->SetHumanPlayer(true);
 		m_pPlayer = *i;
+
+#ifdef LOG_CREATIONAL_STUFF
+		debug_con << "Adding PLAYER with ID " << ttos(m_pPlayer->ID()) << "";
+#endif
 
 		return true;
 	}
@@ -949,12 +956,12 @@ void Raven_Game::Render()
 }
 
 void Raven_Game::ToggleNeuralNet() {
-	UseNeuralNet = !UseNeuralNet;
+	m_useNeuralNet = !m_useNeuralNet;
 
 	std::list<Raven_Bot*>::iterator it = m_Bots.begin();
 	for (it; it != m_Bots.end(); ++it)
 	{
-		(*it)->GetTargetSys()->UseNeuralNet(UseNeuralNet);
+		(*it)->GetTargetSys()->UseNeuralNet(m_useNeuralNet);
 	}
 }
 
@@ -984,4 +991,18 @@ void Raven_Game::ResetNeuralNet() {
 
 	fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
 	fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
+}
+
+void Raven_Game::ToggleTeam() {
+	m_useTeam = !m_useTeam;
+
+	int team = 0;
+	std::list<Raven_Bot*>::iterator it = m_Bots.begin();
+	for (it; it != m_Bots.end(); ++it)
+	{
+		if (m_useTeam)
+			(*it)->SetTeam((team++ % 2) + 1);
+		else
+			(*it)->SetTeam(0);
+	}
 }

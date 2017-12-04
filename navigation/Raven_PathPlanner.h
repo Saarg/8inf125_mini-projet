@@ -48,11 +48,6 @@ private:
   //this is the position the bot wishes to plan a path to reach
   Vector2D                            m_vDestinationPos;
 
-
-  //returns the index of the closest visible and unobstructed graph node to
-  //the given position
-  int   GetClosestNodeToPosition(Vector2D pos)const;
-
   //smooths a path by removing extraneous edges. (may not remove all
   //extraneous edges)
   void  SmoothPathEdgesQuick(Path& path);
@@ -111,6 +106,10 @@ public:
   //into account the enumerations 'non_graph_source_node' and 
   //'non_graph_target_node'
   Vector2D  GetNodePosition(int idx)const;
+
+  //returns the index of the closest visible and unobstructed graph node to
+  //the given position
+  int   GetClosestNodeToPosition(Vector2D pos)const;
 };
 
 

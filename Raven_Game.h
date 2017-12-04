@@ -90,7 +90,9 @@ private:
   const unsigned int num_output = 1;
   
   struct fann *ann;
-  bool UseNeuralNet = false;
+  bool m_useNeuralNet = false;
+
+  bool m_useTeam = false;
 
 public:
   
@@ -186,8 +188,11 @@ public:
               {TagNeighbors(pRaven_Bot, m_Bots, range);}  
 
   void  ToggleNeuralNet();
-  bool  IsUsingNN() { return UseNeuralNet; }
+  bool  IsUsingNN() { return m_useNeuralNet; }
   void  ResetNeuralNet();
+
+  void ToggleTeam();
+  bool IsUsingTeam() { return m_useTeam; }
 };
 
 #endif

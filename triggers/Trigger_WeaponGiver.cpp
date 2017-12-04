@@ -7,8 +7,37 @@
 #include "../Raven_ObjectEnumerations.h"
 #include "../Raven_WeaponSystem.h"
 
-
 ///////////////////////////////////////////////////////////////////////////////
+
+Trigger_WeaponGiver::Trigger_WeaponGiver(double x, double y, double r, int GraphNodeIndex) :
+
+	Trigger_Respawning<Raven_Bot>(BaseGameEntity::GetNextValidID()) {
+	SetPos(Vector2D(x, y));
+	SetBRadius(r);
+	SetGraphNodeIndex(GraphNodeIndex);
+
+	//create this trigger's region of fluence
+	AddCircularTriggerRegion(Pos(), script->GetDouble("DefaultGiverTriggerRange"));
+
+	SetRespawnDelay(-1);
+
+	//create the vertex buffer for the rocket shape
+	const int NumRocketVerts = 8;
+	const Vector2D rip[NumRocketVerts] = { Vector2D(0, 3),
+		Vector2D(1, 2),
+		Vector2D(1, 0),
+		Vector2D(2, -2),
+		Vector2D(-2, -2),
+		Vector2D(-1, 0),
+		Vector2D(-1, 2),
+		Vector2D(0, 3) };
+
+	for (int i = 0; i<NumRocketVerts; ++i)
+	{
+		m_vecRLVB.push_back(rip[i]);
+	}
+}
+
 
 Trigger_WeaponGiver::Trigger_WeaponGiver(std::ifstream& datafile):
       

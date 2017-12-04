@@ -145,9 +145,9 @@ void Raven_Map::AddHealth_Giver(std::ifstream& in)
 
 //----------------------- AddWeapon__Giver ----------------------------------
 //-----------------------------------------------------------------------------
-void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
+void Raven_Map::AddWeapon_Giver(int type_of_weapon, double x, double y, double r, int GraphNodeIndex)
 {
-  Trigger_WeaponGiver* wg = new Trigger_WeaponGiver(in);
+  Trigger_WeaponGiver* wg = new Trigger_WeaponGiver(x, y, r, GraphNodeIndex);
 
   wg->SetEntityType(type_of_weapon);
 
@@ -164,6 +164,24 @@ void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
   EntityMgr->RegisterEntity(wg);
 }
 
+void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
+{
+	Trigger_WeaponGiver* wg = new Trigger_WeaponGiver(in);
+
+	wg->SetEntityType(type_of_weapon);
+
+	//add it to the appropriate vectors
+	m_TriggerSystem.Register(wg);
+
+	//let the corresponding navgraph node point to this object
+	NavGraph::NodeType& node = m_pNavGraph->GetNode(wg->GraphNodeIndex());
+	debug_con << "node : " << node.Pos() << "";
+
+	node.SetExtraInfo(wg);
+
+	//register the entity 
+	EntityMgr->RegisterEntity(wg);
+}
 
 //------------------------- LoadMap ------------------------------------
 //

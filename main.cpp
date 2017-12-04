@@ -109,8 +109,9 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_SCORES, UserOptions->m_bShowScore);
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_GOAL_Q, UserOptions->m_bShowGoalsOfSelectedBot);
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_INDICES, UserOptions->m_bShowNodeIndices);
-        CheckMenuItemAppropriately(hwnd, IDM_GAME_PAUSE, false);
-		CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, false);
+        CheckMenuItemAppropriately(hwnd, IDM_GAME_PAUSE, g_pRaven->IsPaused());
+		CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, g_pRaven->IsUsingNN());
+		CheckMenuItemAppropriately(hwnd, IDM_GAME_TEAM, g_pRaven->IsUsingTeam());
 
 
       }
@@ -192,6 +193,13 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 			 g_pRaven->ResetNeuralNet();
 
 			 break;
+
+		 case 'T':
+
+			 g_pRaven->ToggleTeam();
+			 CheckMenuItemAppropriately(hwnd, IDM_GAME_TEAM, g_pRaven->IsUsingTeam());
+
+			 break;
            
 
         }
@@ -262,13 +270,20 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 	  case IDM_GAME_USENEURALNET:
 
 		  g_pRaven->ToggleNeuralNet();
-		  CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, true);
+		  CheckMenuItemAppropriately(hwnd, IDM_GAME_USENEURALNET, g_pRaven->IsUsingNN());
 
 		  break;
 
 	  case IDM_GAME_RESETNEURALNET:
 
 		  g_pRaven->ResetNeuralNet();
+
+		  break;
+
+	  case IDM_GAME_TEAM:
+
+		  g_pRaven->ToggleTeam();
+		  CheckMenuItemAppropriately(hwnd, IDM_GAME_TEAM, g_pRaven->IsUsingTeam());
 
 		  break;
 

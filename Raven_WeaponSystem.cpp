@@ -139,6 +139,8 @@ void  Raven_WeaponSystem::AddWeapon(unsigned int weapon_type)
 
 	w = new GrenadeLauncher(m_pOwner); break;
 	
+  default :
+	  return;
 
   }//end switch
   

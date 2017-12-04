@@ -36,7 +36,7 @@ void Raven_TargetingSystem::Update()
   for (curBot; curBot != SensedBots.end(); ++curBot)
   {
     //make sure the bot is alive and that it is not the owner
-    if ((*curBot)->isAlive() && (*curBot != m_pOwner) )
+    if ((*curBot)->isAlive() && (*curBot != m_pOwner) && (m_pOwner->GetTeam() != (*curBot)->GetTeam() || m_pOwner->GetTeam() == 0))
     {
 		double cur_distance = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
 
@@ -63,7 +63,12 @@ void Raven_TargetingSystem::Update()
 		ClosestDistSoFar = cur_distance;
 		m_pCurrentTarget = *curBot;
       }
-    }
+	}
+	// if bot is our team and has a target we target the same
+	else if ((*curBot)->isAlive() && (*curBot != m_pOwner) && (m_pOwner->GetTeam() == (*curBot)->GetTeam() || m_pOwner->GetTeam() == 0)) {
+		if ((*curBot)->GetTargetBot())
+			m_pCurrentTarget = (*curBot)->GetTargetBot();
+	}
   }
 }
 

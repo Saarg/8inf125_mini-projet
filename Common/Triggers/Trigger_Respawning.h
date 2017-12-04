@@ -21,6 +21,8 @@ class Trigger_Respawning : public Trigger<entity_type>
 {
 protected:
 
+	bool noRespawn = false;
+
   //When a bot comes within this trigger's area of influence it is triggered
   //but then becomes inactive for a specified amount of time. These values
   //control the amount of time required to pass before the trigger becomes 
@@ -51,14 +53,16 @@ public:
   //this is called each game-tick to update the trigger's internal state
   virtual void Update()
   {
-    if ( (--m_iNumUpdatesRemainingUntilRespawn <= 0) && !isActive())
+    if (!noRespawn && (--m_iNumUpdatesRemainingUntilRespawn <= 0) && !isActive())
     {
       SetActive();
     }
   }
   
   void SetRespawnDelay(unsigned int numTicks)
-  {m_iNumUpdatesBetweenRespawns = numTicks;}
+  {
+	  noRespawn = numTicks==-1;  m_iNumUpdatesBetweenRespawns = numTicks;
+  }
 };
 
 

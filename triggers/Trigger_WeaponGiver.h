@@ -27,7 +27,7 @@ private:
   std::vector<Vector2D>         m_vecRLVBTrans;
   
 public:
-
+  Trigger_WeaponGiver(double x, double y, double r, int GraphNodeIndex);
   //this type of trigger is created when reading a map file
   Trigger_WeaponGiver(std::ifstream& datafile);
 

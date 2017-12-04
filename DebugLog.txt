@@ -84,9 +84,19 @@ Player is selected
 Creating NN with 3 layers and 3 nerons per hidden layers
 Player is now in game in bot 1073
 Player Possesses bot 1073
-Player is exorcised from bot 1073
+node :  30 380
 Player is now in game in bot 1073
 Player Possesses bot 1073
+node :  90 360
+node :  110 380
+node :  410 100
+node :  350 240
+Player is now in game in bot 1073
+Player Possesses bot 1073
+node :  290 280
+node :  150 300
+node :  70 340
+node :  30 300
 deleting raven bot (id = 1069)
 deleting raven bot (id = 1070)
 deleting raven bot (id = 1071)

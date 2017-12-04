@@ -123,6 +123,7 @@ public:
   int                                GetMaxDimension()const{return Maximum(m_iSizeX, m_iSizeY);}
   double                             GetCellSpaceNeighborhoodRange()const{return m_dCellSpaceNeighborhoodRange;}
 
+  void AddWeapon_Giver(int type_of_weapon, double x, double y, double r, int GraphNodeIndex);
 };
 
 
